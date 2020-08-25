@@ -1,0 +1,37 @@
+.ToolBar {
+  display: flex;
+  padding-left: 10px;
+  height: 5rem;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.addbutton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+  height: 3rem;
+  border: none;
+  /* background-color: rgb(211, 48, 48); */
+}
+
+.searching {
+  /* margin: auto; */
+  flex: 0.5;
+  align-items: center;
+  text-align: center;
+}
+
+.catbutton {
+  height: 3rem;
+  color: white;
+  margin-left: 1rem;
+}
+
+@media (max-width: 780px) {
+  .searching {
+    flex: 1;
+    /* width: 300px; */
+  }
+}

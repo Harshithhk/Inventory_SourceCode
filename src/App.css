@@ -1,0 +1,9 @@
+.lolwrapper {
+  z-index: 1;
+  position: relative;
+}
+.App {
+  scroll-behavior: smooth;
+  width: 100vw;
+  /* overflow: hidden; */
+}

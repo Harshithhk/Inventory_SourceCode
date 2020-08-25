@@ -1,0 +1,14 @@
+.Navbar {
+  width: 100vw;
+}
+
+.linked {
+  text-decoration: none;
+  color: white;
+}
+
+.linked:hover {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}

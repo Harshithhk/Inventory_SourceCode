@@ -1,0 +1,77 @@
+.CategoryEdits {
+  position: relative;
+  padding: 20px;
+  color: white;
+  /* width: 40%; */
+  width: 40%;
+  margin: 0 auto auto auto;
+  /* background-color: rgb(86, 99, 219); */
+  background-color: rgb(0, 173, 14);
+  /* text-align: center; */
+
+  /* flex-direction: column; */
+}
+@media (max-width: 800px) {
+  .CategoryEdits {
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+}
+
+.cateditbox {
+  display: flex;
+  /* justify-content: center; */
+}
+.input {
+  /* padding-left: 10px; */
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+.Updatebtn {
+  cursor: pointer;
+  margin-left: 2px;
+  height: 100%;
+  width: 40px;
+  color: rgb(130, 235, 200);
+}
+.Updatebtn :hover {
+  color: rgb(14, 250, 171);
+  width: 35px;
+}
+h7 {
+  padding-top: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.Deletebtn {
+  cursor: pointer;
+  color: rgb(14, 250, 171);
+  margin-left: 2px;
+  height: 100%;
+  width: 40px;
+}
+.Deletebtn:hover {
+  /* width: 35px; */
+}
+
+.DeleteWarning {
+  display: flex;
+  flex-direction: column;
+  /* position: absolute; */
+
+  top: 50%;
+  width: calc(100% - 40px);
+  margin-bottom: 16px;
+  /* background-color: darkgray; */
+
+  /* transform: translateY(-50%); */
+}
+
+h4 {
+  margin-bottom: 20px;
+  /* font-weight: bolder; */
+  /* align-items: center; */
+  /* text-align: center; */
+}
