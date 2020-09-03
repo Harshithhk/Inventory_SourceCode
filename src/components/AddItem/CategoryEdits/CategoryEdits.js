@@ -91,6 +91,7 @@ const CategoryEdits = ({ Cate, setCate, setForRefresh }) => {
       });
   };
   return (
+    // <div className={styles.addedit}>
     <div className={styles.CategoryEdits}>
       <h4>CATEGORY:</h4>
       <h6>Add new category</h6>
@@ -169,6 +170,7 @@ const CategoryEdits = ({ Cate, setCate, setForRefresh }) => {
         </Form.Group>
       </div>
     </div>
+    // </div>
   );
 };
 

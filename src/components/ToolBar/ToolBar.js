@@ -3,6 +3,8 @@ import { MdLibraryAdd } from "react-icons/md";
 import "./ToolBar.css";
 import { Button } from "react-bootstrap";
 
+import { PostContext } from "../PostContext";
+
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import BButton from "@material-ui/core/Button";
@@ -20,8 +22,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ToolBar = ({
-  setPosts,
-  posts,
   Addtoggle,
   setAddtoggle,
   setFilteredPosts,

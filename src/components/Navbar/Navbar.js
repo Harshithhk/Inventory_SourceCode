@@ -8,6 +8,8 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import "./Navbar.css";
 
+import { Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1,
+    // flexGrow: 1,
   },
 }));
 
@@ -36,13 +38,27 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton> */}
 
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h5" className={classes.title}>
             <a className="linked" href="/">
               INVENTORY
             </a>
           </Typography>
+          <div className="NavPannel">
+            <ul>
+              <Link
+                to="/orders"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <li> ORDERS</li>
+              </Link>
+              <li>ORDERS</li>
+              <li>ORDERS</li>
+            </ul>
+          </div>
 
-          <Button color="inherit">Login</Button>
+          <Button className="Loginbtn" color="inherit">
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

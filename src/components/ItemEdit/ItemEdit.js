@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import "./ItemEdit.css";
+import React, { useState, useEffect, useContext } from "react";
+import { ListContext } from "../ListContext";
 import axios from "axios";
 import Popup from "reactjs-popup";
+import styles from "./ItemEdit.module.css";
 import {
   InputGroup,
   Form,
@@ -11,17 +12,14 @@ import {
   Button,
 } from "react-bootstrap";
 
-const ItemEdit = ({
-  Uid,
-  OverlayDetails,
-  setItemOverlay,
-  ItemOverlay,
-  CategoryToggle,
-  setCategoryToggle,
-}) => {
+const ItemEdit = ({ setItemOverlay, ItemOverlay }) => {
   const [postData, setPostData] = useState([]);
   const [Cat, setCat] = useState([]);
   const [data, setdata] = useState([]);
+
+  const [Uid, setUid, OverlayDetails, setOverlayDetails] = useContext(
+    ListContext
+  );
 
   // VALIDATION__________________________
   const errordummy = {
@@ -166,16 +164,16 @@ const ItemEdit = ({
   // };
 
   return (
-    <div className="itemedit">
+    <div className={styles.itemedit}>
       {postData.map((post) => (
-        <div className="itemdetail" key={Uid}>
+        <div className={styles.itemdetail} key={Uid}>
           <Form>
             <Row>
               <Col>
                 <Form.Group>
                   <Form.Label>Name*</Form.Label>
                   <Form.Control
-                    className="input"
+                    className={styles.input}
                     size="sm"
                     type="text"
                     name="name"
@@ -190,7 +188,7 @@ const ItemEdit = ({
                 <Form.Group>
                   <Form.Label>Manufacturer*</Form.Label>
                   <Form.Control
-                    className="input"
+                    className={styles.input}
                     size="sm"
                     type="text"
                     name="manufacturer"
@@ -205,7 +203,7 @@ const ItemEdit = ({
             <Form.Group>
               <Form.Label>Distributer*</Form.Label>
               <Form.Control
-                className="input"
+                className={styles.input}
                 size="sm"
                 type="text"
                 name="distributer"
@@ -220,7 +218,7 @@ const ItemEdit = ({
                 <Form.Group>
                   <Form.Label>Size*</Form.Label>
                   <Form.Control
-                    className="input"
+                    className={styles.input}
                     size="sm"
                     type="text"
                     name="size"
@@ -235,7 +233,7 @@ const ItemEdit = ({
                 <Form.Group>
                   <Form.Label>Weight*</Form.Label>
                   <Form.Control
-                    className="input"
+                    className={styles.input}
                     size="sm"
                     type="number"
                     name="weight"
@@ -250,7 +248,7 @@ const ItemEdit = ({
                 <Form.Group>
                   <Form.Label>Quantity*</Form.Label>
                   <Form.Control
-                    className="input"
+                    className={styles.input}
                     size="sm"
                     type="number"
                     name="quantity"
@@ -267,7 +265,7 @@ const ItemEdit = ({
                 <Form.Group>
                   <Form.Label>Cost price*</Form.Label>
                   <Form.Control
-                    className="input"
+                    className={styles.input}
                     size="sm"
                     type="number"
                     name="cost_price"
@@ -282,14 +280,14 @@ const ItemEdit = ({
                 <Form.Group>
                   <Form.Label>Selling price*</Form.Label>
                   <Form.Control
-                    className="input"
+                    className={styles.input}
                     size="sm"
                     type="number"
                     name="selling_price"
                     value={data.selling_price}
                     placeholder={data.selling_price}
                     onChange={handledata}
-                  />{" "}
+                  />
                   <h3>{errors.sellingprice}</h3>
                 </Form.Group>
               </Col>
@@ -299,7 +297,7 @@ const ItemEdit = ({
                 <Form.Group>
                   <Form.Label>Mfg date*</Form.Label>
                   <Form.Control
-                    className="input"
+                    className={styles.input}
                     size="sm"
                     type="text"
                     name="mfg_date"
@@ -314,7 +312,7 @@ const ItemEdit = ({
                 <Form.Group>
                   <Form.Label>Exp date*</Form.Label>
                   <Form.Control
-                    className="input"
+                    className={styles.input}
                     size="sm"
                     type="text"
                     name="exp_date"
@@ -336,7 +334,7 @@ const ItemEdit = ({
               </Form.Control>{" "}
               <h3>{errors.category}</h3>
             </Form.Group>
-            <div className="buttonss">
+            <div className={styles.buttonss}>
               <Button variant="primary" onClick={handlesubmit}>
                 SAVE
               </Button>

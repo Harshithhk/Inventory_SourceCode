@@ -1,0 +1,12 @@
+.OrderItemList {
+  width: fit-content;
+  /* background: rgb(228, 228, 125); */
+}
+tr {
+  cursor: pointer;
+}
+
+.searchinput {
+  width: 100%;
+  background-color: white;
+}

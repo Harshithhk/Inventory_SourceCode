@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CategoryEdits from "./CategoryEdits/CategoryEdits";
 
 import axios from "axios";
@@ -13,22 +13,24 @@ import {
 } from "react-bootstrap";
 import { MdLibraryAdd } from "react-icons/md";
 
+import { PostContext } from "../PostContext";
+
 import styles from "./AddItem.module.css";
 
 //_________IMPORT ENDS_______________________________
 
 const AddItem = ({
-  postdata,
   AddToggle,
   setAddToggle,
-  posts,
-  setPosts,
-  AddItem,
+  Cate,
+  setCate,
+  ForRefresh,
+  setForRefresh,
   CategoryToggle,
   setCategoryToggle,
 }) => {
-  // _____________WORKING WITH DATES____________________
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [posts, setPosts] = useContext(PostContext);
+
   // ________DUMMY DATA FOR FEILDS______________________
   var dummy = {
     name: "",
@@ -122,9 +124,9 @@ const AddItem = ({
   };
 
   // _____________________________________________
-  const [Cate, setCate] = useState([]);
+
   const [ExpAddition, setExpAddition] = useState(false);
-  const [ForRefresh, setForRefresh] = useState("");
+  // const [ForRefresh, setForRefresh] = useState("");
 
   // TO ADD MONTHS OF EXP
   const handleaddexpno = (e) => {
@@ -150,20 +152,17 @@ const AddItem = ({
         )
         .then((res) => {
           console.log("POSTED SUCCESFULLY");
-          // window.location.reload(false);
+
           setPosts([...posts, AddedData]);
           setAddedData(dummy);
-
-          // setAddToggle(!AddToggle);
-          // setExpAddition(!ExpAddition);
+          setErrors(errordummy);
         })
         .catch((err) => {
           setErrors({
             ...errors,
             required: "Feilds with star(*) cannot be empty",
           });
-          // setAddToggle(!AddToggle);
-          // setExpAddition(!ExpAddition);
+
           console.log(err);
         });
     }
@@ -231,7 +230,6 @@ const AddItem = ({
                   type="text"
                   name="name"
                   value={AddedData.name}
-                  // placeholder="error.empty"
                   onChange={handleadd}
                 />
               </Form.Group>
@@ -365,8 +363,6 @@ const AddItem = ({
                   size="sm"
                   type="number"
                   name="selling_price"
-                  // value={ExpAddition}
-                  // placeholder="No of Months to Expire"
                   onChange={handleaddexpno}
                 />
               </Form.Group>
@@ -382,7 +378,7 @@ const AddItem = ({
                   value={AddedData.exp_date}
                   placeholder="yyyy-mm-dd"
                   onChange={handleadd}
-                />{" "}
+                />
                 <h3>{errors.expdate}</h3>
               </Form.Group>
             </Col>

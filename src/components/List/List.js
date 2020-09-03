@@ -1,12 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as ReactBootStrap from "react-bootstrap";
 
+import { PostContext } from "../PostContext";
+import { ListContext } from "../ListContext";
+
 import { AiFillEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
-import "./List.css";
+import styles from "./List.module.css";
+
 const List = (props) => {
+  const [posts, setPosts] = useContext(PostContext);
+  const [Uid, setUid, OverlayDetails, setOverlayDetails] = useContext(
+    ListContext
+  );
+
   console.log(props);
   // const [posts, setPosts] = useState([]);
   const [Deleted, setDeleted] = useState(false);
@@ -14,17 +23,17 @@ const List = (props) => {
     axios
       .get("https://piyushdongre16.pythonanywhere.com/products/?format=json")
       .then((res) => {
-        props.setPosts(res.data);
+        setPosts(res.data);
         setDeleted(false);
-        props.setOverlayDetails(res.data);
+        setOverlayDetails(res.data);
         console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [Deleted]);
-
-  const Filteredps = props.posts.filter((post) => {
+  }, [Deleted, props.refresh]);
+  // CONTEXTIN
+  const Filteredps = posts.filter((post) => {
     return post.name.toLowerCase().includes(props.Search.toLowerCase());
   });
 
@@ -32,7 +41,7 @@ const List = (props) => {
     console.log(value);
     props.setItemOverlay(!props.ItemOverlay);
 
-    props.setUid(value);
+    setUid(value);
   };
 
   const handleDelete = (id) => {
@@ -55,42 +64,45 @@ const List = (props) => {
   const renderPosts = (item, index) => {
     ind++;
     var total = item.selling_price * item.quantity;
+    var weight = item.weight;
+    var weightspec = "kg";
+    if (weight < 1) {
+      weight = weight * 1000;
+      weightspec = "gms";
+    }
 
+    // ____________________________________________
     return (
       <tr key={item.id}>
-        <td className="edit">
+        <td className={styles.edit}>
           {ind}
 
-          <div className="deletebtn">
+          <div className={styles.deletebtn}>
             <button value="Click Me" onClick={() => handleDelete(item.id)}>
               <MdDelete />
             </button>
           </div>
           <div>
-            <div className="replacinga">
+            <div className={styles.replacinga}>
               <button value="Click Me" onClick={() => handleEditClick(item.id)}>
                 <AiFillEdit />
               </button>
             </div>
           </div>
         </td>
-        <td className="datefeild">{item.name}</td>
+        <td className={styles.datefeild}>{item.name}</td>
         <td>{item.category}</td>
         <td>{item.manufacturer}</td>
-        <td className="datefeild">{item.mfg_date}</td>
-        <td className="datefeild">{item.exp_date}</td>
+        <td className={styles.datefeild}>{item.mfg_date}</td>
+        <td className={styles.datefeild}>{item.exp_date}</td>
         <td>{item.size}</td>
-        <td>{item.weight}Kg</td>
+        <td>
+          {weight}
+          {weightspec}
+        </td>
         <td>{item.quantity}</td>
         <td>₹{item.selling_price}</td>
         <td>₹{total}</td>
-        {/* {item.id === props.Uid ? (
-          <div>
-            <h2>HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO</h2>
-          </div>
-        ) : (
-          <div></div>
-        )} */}
       </tr>
     );
   };
@@ -111,8 +123,8 @@ const List = (props) => {
             <th>Size</th>
             <th>Weight</th>
             <th>Quantity</th>
-            <th>SellPrice</th>
-            <th>TotalValue</th>
+            <th>Sell Price</th>
+            <th>Total Value</th>
           </tr>
         </thead>
         <tbody>{Filteredps.map(renderPosts)}</tbody>

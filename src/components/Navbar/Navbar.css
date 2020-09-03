@@ -12,3 +12,26 @@
   color: white;
   cursor: pointer;
 }
+
+.NavPannel {
+  width: 100%;
+  padding-left: 2rem;
+}
+
+.NavPannel ul {
+  display: flex;
+  margin: auto;
+  align-items: center;
+  list-style-type: none;
+}
+.NavPannel ul li {
+  text-decoration: none;
+  font-size: 1rem;
+  padding-right: 2em;
+  padding-left: 2em;
+  /* background-color: green; */
+}
+
+a {
+  text-decoration: none;
+}

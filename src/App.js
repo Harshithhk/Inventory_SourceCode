@@ -4,77 +4,81 @@ import Navbar from "./components/Navbar/Navbar";
 import ItemEdit from "./components/ItemEdit/ItemEdit";
 import ToolBar from "./components/ToolBar/ToolBar";
 import AddItem from "./components/AddItem/AddItem";
+import Orders from "./components/Orders/Orders";
+import CategoryEdits from "./components/AddItem/CategoryEdits/CategoryEdits";
+import { PostProvider } from "./components/PostContext";
+import { ListProvider } from "./components/ListContext";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import "./App.css";
 
 function App() {
-  const [Uid, setUid] = useState();
+  const [Search, setSearch] = useState("");
+
+  // _________ADDING?EDITING________
+  const [Cate, setCate] = useState([]);
+  const [ForRefresh, setForRefresh] = useState("");
+
+  // _________________TOGGLERS_____________
   const [ItemOverlay, setItemOverlay] = useState(false);
-  const [OverlayDetails, setOverlayDetails] = useState([]);
-  const [posts, setPosts] = useState([]);
   const [Addtoggle, setAddtoggle] = useState(false);
   const [CategoryToggle, setCategoryToggle] = useState(false);
-  const [AddItemToggle, setAddItemToggle] = useState(false);
+  const [refresh, setRefresh] = useState(true);
 
-  const [Search, setSearch] = useState("");
-  const overlaydisp = (ItemOverlay) => {
-    if (ItemOverlay) {
-      return <ItemEdit />;
-    }
-  };
   return (
-    <div className="App">
-      <Navbar />
+    <Router>
+      <PostProvider>
+        <div className="App">
+          <Navbar />
+          <Route exact path="/">
+            <ToolBar
+              Addtoggle={Addtoggle}
+              setAddtoggle={setAddtoggle}
+              setSearch={setSearch}
+              Search={Search}
+            />
+            {Addtoggle && (
+              <div>
+                <AddItem
+                  AddToggle={Addtoggle}
+                  setAddToggle={setAddtoggle}
+                  CategoryToggle={CategoryToggle}
+                  setCategoryToggle={setCategoryToggle}
+                  Cate={Cate}
+                  setCate={setCate}
+                  ForRefresh={ForRefresh}
+                  setForRefresh={setForRefresh}
+                />
+              </div>
+            )}
 
-      <ToolBar
-        setPosts={setPosts}
-        Addtoggle={Addtoggle}
-        setAddtoggle={setAddtoggle}
-        CategoryToggle={CategoryToggle}
-        setCategoryToggle={setCategoryToggle}
-        AddItemToggle={AddItemToggle}
-        setAddItemToggle={setAddItemToggle}
-        setSearch={setSearch}
-        Search={Search}
-      />
-      {Addtoggle ? (
-        <AddItem
-          AddToggle={Addtoggle}
-          setAddToggle={setAddtoggle}
-          posts={posts}
-          setPosts={setPosts}
-          CategoryToggle={CategoryToggle}
-          setCategoryToggle={setCategoryToggle}
-          AddItemToggle={AddItemToggle}
-          setAddItemToggle={setAddItemToggle}
-        />
-      ) : (
-        <div></div>
-      )}
-      <div className="lolwrapper">
-        <List
-          Uid={Uid}
-          setUid={setUid}
-          setItemOverlay={setItemOverlay}
-          ItemOverlay={ItemOverlay}
-          setOverlayDetails={setOverlayDetails}
-          setPosts={setPosts}
-          posts={posts}
-          Search={Search}
-        />
+            <ListProvider>
+              <div className="lolwrapper">
+                <List
+                  setItemOverlay={setItemOverlay}
+                  ItemOverlay={ItemOverlay}
+                  Search={Search}
+                  refresh={refresh}
+                  setRefresh={setRefresh}
+                />
 
-        {ItemOverlay && (
-          <ItemEdit
-            Uid={Uid}
-            OverlayDetails={OverlayDetails}
-            // className="stickyitem"
-            ItemOverlay={ItemOverlay}
-            setItemOverlay={setItemOverlay}
-            posts={posts}
-          />
-        )}
-      </div>
-    </div>
+                {ItemOverlay && (
+                  <ItemEdit
+                    // className="stickyitem"
+                    ItemOverlay={ItemOverlay}
+                    setItemOverlay={setItemOverlay}
+                  />
+                )}
+              </div>
+            </ListProvider>
+          </Route>
+          <Route path="/orders">
+            <Orders refresh={refresh} setRefresh={setRefresh} />
+          </Route>
+        </div>
+      </PostProvider>
+    </Router>
   );
 }
 

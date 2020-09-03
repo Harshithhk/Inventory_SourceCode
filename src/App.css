@@ -1,6 +1,7 @@
 .lolwrapper {
   z-index: 1;
   position: relative;
+  /* display: flex; */
 }
 .App {
   scroll-behavior: smooth;
