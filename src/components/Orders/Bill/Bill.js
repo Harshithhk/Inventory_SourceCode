@@ -13,6 +13,7 @@ const Orders = ({
   total,
   setTotal,
 }) => {
+  const [posts, setPosts] = useContext(PostContext);
   const [copy, setCopy] = useState(saleprice);
   const [cust, setCust] = useState("");
   const [paid, setPaid] = useState(false);
@@ -21,19 +22,30 @@ const Orders = ({
 
   // _________HANDLING QUANTITY___________
   var Copyiq = idquant;
-
+  var Copysp = copy;
+  var totalcalc = total;
   const handleMultiplication = async (e, index) => {
-    var Copysp = saleprice;
+    var diff;
     console.log(Copysp);
-    Copyiq[index].quantity = Number(e.target.value);
-    Copysp[index] = Number(e.target.value) * saleprice[index];
-    console.log(Copysp);
-    setCopy(Copysp);
-    await setTotal(
-      Copysp.reduce((acc, val) => {
-        return acc + val;
-      }, 0)
-    );
+    console.log(e.target.value);
+    if (e.target.value > 0) {
+      if (Number(e.target.value) < Copyiq[index].quantity) {
+        console.log("SMALLER");
+        console.log(typeof Copyiq[index].quantity);
+        diff = setTotal(
+          total -
+            (Copyiq[index].quantity - Number(e.target.value)) * saleprice[index]
+        );
+      }
+      if (Number(e.target.value) > Copyiq[index].quantity) {
+        console.log("LARGER");
+        diff = setTotal(
+          total +
+            (Number(e.target.value) - Copyiq[index].quantity) * saleprice[index]
+        );
+      }
+      Copyiq[index].quantity = Number(e.target.value);
+    }
   };
   // ______CUSTOMER__________
   // var tempcust;

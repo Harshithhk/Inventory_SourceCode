@@ -6,6 +6,7 @@ import ToolBar from "./components/ToolBar/ToolBar";
 import AddItem from "./components/AddItem/AddItem";
 import Orders from "./components/Orders/Orders";
 import CategoryEdits from "./components/AddItem/CategoryEdits/CategoryEdits";
+import Customer from "./components/Customer/Customer";
 import { PostProvider } from "./components/PostContext";
 import { ListProvider } from "./components/ListContext";
 
@@ -73,8 +74,11 @@ function App() {
               </div>
             </ListProvider>
           </Route>
-          <Route path="/orders">
+          <Route exact path="/orders">
             <Orders refresh={refresh} setRefresh={setRefresh} />
+          </Route>
+          <Route path="/customers">
+            <Customer />
           </Route>
         </div>
       </PostProvider>

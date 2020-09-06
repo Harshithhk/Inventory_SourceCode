@@ -51,7 +51,12 @@ export default function ButtonAppBar() {
               >
                 <li> ORDERS</li>
               </Link>
-              <li>ORDERS</li>
+              <Link
+                to="/customers"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <li>CUSTOMERS</li>
+              </Link>
               <li>ORDERS</li>
             </ul>
           </div>

@@ -91,7 +91,6 @@ const CategoryEdits = ({ Cate, setCate, setForRefresh }) => {
       });
   };
   return (
-    // <div className={styles.addedit}>
     <div className={styles.CategoryEdits}>
       <h4>CATEGORY:</h4>
       <h6>Add new category</h6>
@@ -111,7 +110,7 @@ const CategoryEdits = ({ Cate, setCate, setForRefresh }) => {
           />
         </Form.Group>
       </div>
-      {/*________________ DELETE CATS_____________ */}
+
       <h6>Delete category</h6>
       <div className={styles.cateditbox}>
         <Form.Group className={styles.input}>
@@ -141,7 +140,7 @@ const CategoryEdits = ({ Cate, setCate, setForRefresh }) => {
           </div>
         </div>
       )}
-      {/*________________ EDIT CATS_____________ */}
+
       <h6>Edit categories</h6>
       <div className={styles.cateditbox}>
         <Form.Group className={styles.input}>
@@ -160,7 +159,6 @@ const CategoryEdits = ({ Cate, setCate, setForRefresh }) => {
             type="text"
             name="exp_date"
             value={UpdateCat.name}
-            // placeholder={AddedData.exp_date}
             onChange={handleUpdateName}
           />
           <RiAddBoxFill
@@ -170,7 +168,6 @@ const CategoryEdits = ({ Cate, setCate, setForRefresh }) => {
         </Form.Group>
       </div>
     </div>
-    // </div>
   );
 };
 

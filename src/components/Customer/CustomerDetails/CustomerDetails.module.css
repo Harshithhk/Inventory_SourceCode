@@ -1,0 +1,33 @@
+.customerdetails {
+  padding: 15px;
+  background-color: lavender;
+  width: 65vw;
+  min-width: fit-content;
+  height: 100vh;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: normal;
+}
+.wrapper {
+  background: lemonchiffon;
+}
+
+.searching {
+  margin-top: 1rem;
+}
+.sort {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  width: fit-content;
+  background: rgb(203, 203, 250);
+}
+.sort span {
+  padding-left: 0.2rem;
+}

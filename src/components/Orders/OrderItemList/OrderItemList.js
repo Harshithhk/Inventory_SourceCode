@@ -25,12 +25,12 @@ const OrderItemList = ({
   // ________ADDING TO ORDER STATE____________
 
   const handleorderitem = (item) => {
-    if (idquant.some((e) => e.product === item.id)) {
+    if (idquant.some((e) => e.product_id === item.id)) {
       console.log("EXIST");
     } else {
       setNames([...names, item.name]);
       setSalePrice([...saleprice, item.selling_price]);
-      setIdQuant([...idquant, { product: item.id, quantity: 1 }]);
+      setIdQuant([...idquant, { product_id: item.id, quantity: 1 }]);
       setTotal(total + item.selling_price);
     }
   };

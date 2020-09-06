@@ -1,0 +1,40 @@
+.AddCustomers {
+  padding: 15px;
+}
+.AddCustomers h1 {
+  font-size: 32px;
+  font-weight: normal;
+  margin-bottom: 1rem;
+}
+.input {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+.input h3 {
+  width: 13.5ch;
+  margin-right: 0.5rem;
+}
+.buttonsubmit {
+  display: flex;
+  cursor: pointer;
+  height: 2rem;
+  width: 6rem;
+  justify-content: center;
+  /* box-shadow: 2px 0px 5px lavender; */
+  align-items: center;
+  /* font-weight: 400; */
+  color: white;
+  background: rgb(156, 156, 252);
+}
+
+.check {
+  margin-top: 2rem;
+  display: flex;
+
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+.check input {
+  margin-left: 0.5rem;
+}
