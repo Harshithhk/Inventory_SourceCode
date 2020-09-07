@@ -9,7 +9,7 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
-const AddCustomers = (r) => {
+const AddCustomers = (refe, setRefe) => {
   const [custdata, setCustData] = useState({
     name: "",
     phone_no: "",
@@ -24,6 +24,15 @@ const AddCustomers = (r) => {
         custdata
       )
       .then((res) => {
+        // setRefe(refe + 1);
+        window.location.reload();
+        setCustData({
+          name: "",
+          phone_no: "",
+          daily_service: false,
+          outstanding_amount: 0,
+          amount_paid: 0,
+        });
         console.log(res);
       });
     console.log(custdata);

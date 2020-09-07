@@ -8,6 +8,7 @@ import axios from "axios";
 const Customer = () => {
   const [post, setPosts] = useContext(PostContext);
   const [customers, setCustomers] = useState([]);
+  const [refe, setRefe] = useState(0);
   var r = false;
   useEffect(() => {
     axios
@@ -18,11 +19,11 @@ const Customer = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [r]);
+  }, []);
   return (
     <div className={styles.customerWrapper}>
       <CustomerDetails customers={customers} setCustomers={setCustomers} />
-      <AddCustomers r={r} />
+      <AddCustomers refe={refe} setRefe={setRefe} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as ReactBootStrap from "react-bootstrap";
 import styles from "./CustomerDetails.module.css";
+import axios from "axios";
 
 const CustomerDetails = ({ customers, setCustomers }) => {
   const [searchText, setSearchText] = useState("");
@@ -15,6 +16,17 @@ const CustomerDetails = ({ customers, setCustomers }) => {
   };
 
   const handleid = (e) => {
+    axios
+      .delete(
+        `https://piyushdongre16.pythonanywhere.com/customer/${e.target.value}/?format=json`
+      )
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     console.log(e.target.value);
   };
 
@@ -33,8 +45,12 @@ const CustomerDetails = ({ customers, setCustomers }) => {
         <td>₹{item.amount_paid}</td>
         <td>{oa}</td>
         <td>
-          <button value={item.id} onClick={handleid}>
-            &#10562;
+          <button
+            value={item.id}
+            className={styles.delete_Customer}
+            onClick={handleid}
+          >
+            X
           </button>
         </td>
       </tr>

@@ -31,3 +31,13 @@
 .sort span {
   padding-left: 0.2rem;
 }
+
+.delete_Customer {
+  z-index: 10;
+  width: 1.75rem;
+  border: none;
+  background-color: rgb(255, 183, 183);
+}
+.delete_Customer ::selection {
+  background-color: red;
+}
