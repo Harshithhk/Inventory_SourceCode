@@ -59,7 +59,7 @@ const ItemEdit = ({ setItemOverlay, ItemOverlay }) => {
       });
       return false;
     }
-    if (data.selling_price < data.cost_price) {
+    if (Number(data.selling_price) < Number(data.cost_price)) {
       setErrors({
         ...errors,
         sellingprice: "sellingprice cannot be less than CP",

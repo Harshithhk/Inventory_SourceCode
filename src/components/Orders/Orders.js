@@ -1,4 +1,4 @@
-import React, { useContest, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./Orders.module.css";
 import { PostContext } from "../PostContext";
 import Bill from "./Bill/Bill";

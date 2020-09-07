@@ -62,28 +62,28 @@ const AddItem = ({
 
   const validation = () => {
     var regEx = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
-    if (AddedData.weight < 0) {
+    if (Number(AddedData.weight) < 0) {
       setErrors({
         ...errors,
         weight: "Weight cannot be Negative",
       });
       return false;
     }
-    if (AddedData.quantity < 0) {
+    if (Number(AddedData.quantity) < 0) {
       setErrors({
         ...errors,
         quantity: "Quantity cannot be Negative",
       });
       return false;
     }
-    if (AddedData.cost_price < 0) {
+    if (Number(AddedData.cost_price) < 0) {
       setErrors({
         ...errors,
         costprice: "Costprice cannot be Negative",
       });
       return false;
     }
-    if (AddedData.selling_price < AddedData.cost_price) {
+    if (Number(AddedData.selling_price) < Number(AddedData.cost_price)) {
       setErrors({
         ...errors,
         sellingprice: "sellingprice cannot be less than CP",

@@ -1,4 +1,4 @@
-import React, { useContest, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import styles from "./Bill.module.css";
 import { PostContext } from "../../PostContext";
@@ -14,7 +14,7 @@ const Orders = ({
   total,
   setTotal,
 }) => {
-  const [posts, setPosts] = useContext(PostContext);
+  // const [posts, setPosts] = useContext(PostContext);
   const [copy, setCopy] = useState(saleprice);
   const [cust, setCust] = useState("");
   const [paid, setPaid] = useState(false);
@@ -78,14 +78,21 @@ const Orders = ({
         customer: cust[0].id,
       })
       .then((res) => {
-        console.log("POST");
+        console.log("POSTED SUCCESFULLY");
       })
       .catch((err) => {
         console.log(err);
       });
   };
   // _____________DELETION____________
-  const handledelete = (e, name, id) => {
+  var salepricetemp = saleprice;
+  useEffect(() => {
+    salepricetemp = saleprice;
+  }, [saleprice]);
+
+  const handledelete = (e, name, id, sp, qu) => {
+    salepricetemp = salepricetemp.splice(Number(e.target.value), 1);
+    setTotal(total - Number(sp * qu));
     setIdQuant(
       idquant.filter((idq) => {
         return idq.product_id !== id;
@@ -122,12 +129,20 @@ const Orders = ({
                     className={styles.quantityno}
                     onChange={(e) => handleMultiplication(e, index)}
                   />
-                  <span id={styles.price}>${saleprice[index]}</span>
+                  <span id={styles.price}>${salepricetemp[index]}</span>
                 </div>
                 <button
                   className={styles.delete_btn}
                   value={index}
-                  onClick={(e) => handledelete(e, names[index], iq.product_id)}
+                  onClick={(e) =>
+                    handledelete(
+                      e,
+                      names[index],
+                      iq.product_id,
+                      saleprice[index],
+                      Copyiq[index].quantity
+                    )
+                  }
                 >
                   X
                 </button>
