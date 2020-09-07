@@ -58,6 +58,7 @@ const Orders = () => {
         idquant={idquant}
         setIdQuant={setIdQuant}
         names={names}
+        setNames={setNames}
         saleprice={saleprice}
         setSalePrice={setSalePrice}
         customer={customer}

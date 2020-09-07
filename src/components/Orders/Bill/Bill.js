@@ -7,6 +7,7 @@ const Orders = ({
   idquant,
   setIdQuant,
   names,
+  setNames,
   saleprice,
   setSalePrice,
   customer,
@@ -22,11 +23,10 @@ const Orders = ({
 
   // _________HANDLING QUANTITY___________
   var Copyiq = idquant;
-  var Copysp = copy;
-  var totalcalc = total;
+
   const handleMultiplication = async (e, index) => {
     var diff;
-    console.log(Copysp);
+
     console.log(e.target.value);
     if (e.target.value > 0) {
       if (Number(e.target.value) < Copyiq[index].quantity) {
@@ -56,11 +56,9 @@ const Orders = ({
         return custom.name == e.target.value;
       })
     );
-    // tempcust = Number(tempcust[0].id);
-    // console.log(tempcust);
-
     console.log(e.target.value);
   };
+
   // ________SUBMITTING________
   const handleOrderSubmit = () => {
     console.log({
@@ -70,6 +68,7 @@ const Orders = ({
       daily_order: false,
       customer: cust[0].id,
     });
+
     axios
       .post("https://piyushdongre16.pythonanywhere.com/order/?format=json", {
         order_items: Copyiq,
@@ -85,6 +84,22 @@ const Orders = ({
         console.log(err);
       });
   };
+  // _____________DELETION____________
+  const handledelete = (e, name, id) => {
+    setIdQuant(
+      idquant.filter((idq) => {
+        return idq.product_id !== id;
+      })
+    );
+    setNames(
+      names.filter((nam) => {
+        return nam !== name;
+      })
+    );
+    Copyiq = Copyiq.filter((ciq) => {
+      return ciq.product_id !== id;
+    });
+  };
 
   return (
     <div className={styles.Orders}>
@@ -98,7 +113,7 @@ const Orders = ({
         <ul id={styles.list} className={styles.list}>
           {idquant.map((iq, index) => {
             return (
-              <li className={styles.plus}>
+              <li key={iq.product_id} className={styles.plus}>
                 <div>{names[index]}</div>
                 <div>
                   <input
@@ -109,22 +124,18 @@ const Orders = ({
                   />
                   <span id={styles.price}>${saleprice[index]}</span>
                 </div>
-                <button className={styles.delete_btn}>X</button>
+                <button
+                  className={styles.delete_btn}
+                  value={index}
+                  onClick={(e) => handledelete(e, names[index], iq.product_id)}
+                >
+                  X
+                </button>
               </li>
             );
           })}
         </ul>
 
-        {/* <h3>Add Selling Price Manually?</h3>
-        <form id={styles.form}>
-          <div class={styles.form_control}>
-            <input
-              type="number"
-              id={styles.amount}
-              placeholder="Enter amount..."
-            />
-          </div>
-        </form> */}
         <Form.Label>Customer Name:</Form.Label>
         <Form.Control as="select" onChange={handleCustomer}>
           <option>Default select</option>;
