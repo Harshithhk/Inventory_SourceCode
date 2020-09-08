@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import hostyles from "./HistoryOfOrders.module.css";
 import axios from "axios";
 const HistoryOfOrders = ({ history, setHistory, posts }) => {
   useEffect(() => {
     axios
-      .get("http://piyushdongre16.pythonanywhere.com/order/?format=json")
+      .get("https://piyushdongre16.pythonanywhere.com/order/?format=json")
       .then((res) => {
         console.log(res.data);
         setHistory(res.data);
@@ -34,11 +34,25 @@ const HistoryOfOrders = ({ history, setHistory, posts }) => {
             {order.order_items.map((item) => {
               return (
                 <div className={hostyles.orderdetai}>
-                  <h5 className={hostyles.hotitle}>Item_Name</h5>
-                  <div className={hostyles.QnT}>
-                    <h5>{item.quantity}</h5>
-                    <h5>₹{order.total_cost}</h5>
-                  </div>
+                  {posts
+                    .filter((post) => {
+                      return post.id == item.product_id;
+                    })
+                    .map((filteredpost) => {
+                      return (
+                        <>
+                          <h5 className={hostyles.hotitle}>
+                            {filteredpost.name}
+                          </h5>
+                          <div className={hostyles.QnT}>
+                            <h5>{item.quantity}</h5>
+                            <h5>
+                              ₹{filteredpost.selling_price * item.quantity}
+                            </h5>
+                          </div>
+                        </>
+                      );
+                    })}
                 </div>
               );
             })}
