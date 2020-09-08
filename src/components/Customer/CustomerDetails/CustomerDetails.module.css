@@ -37,6 +37,7 @@
   width: 1.75rem;
   border: none;
   background-color: rgb(255, 183, 183);
+  box-shadow: 1px 1px 1px red;
 }
 .delete_Customer ::selection {
   background-color: red;

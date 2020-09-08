@@ -7,7 +7,7 @@ const CustomerDetails = ({ customers, setCustomers }) => {
   const [searchText, setSearchText] = useState("");
   const [filterid, setFilterId] = useState();
   //   ________HANDLING SEARCH___________
-  const Filteredposts = customers.filter((post) => {
+  var Filteredposts = customers.filter((post) => {
     return post.name.toLowerCase().includes(searchText.toLowerCase());
   });
 
@@ -28,6 +28,11 @@ const CustomerDetails = ({ customers, setCustomers }) => {
         console.log(err);
       });
     console.log(e.target.value);
+  };
+
+  //__________________SORTING_____________
+  const handleSort = () => {
+    console.log(customers);
   };
 
   // __________________________________________
@@ -69,7 +74,7 @@ const CustomerDetails = ({ customers, setCustomers }) => {
         onChange={handleSearch}
       />
 
-      <div className={styles.sort}>
+      <div className={styles.sort} onClick={handleSort}>
         Sort by Outstandings<span>&#x2193;</span>
       </div>
 
