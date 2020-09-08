@@ -2,11 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import styles from "./Orders.module.css";
 import { PostContext } from "../PostContext";
 import Bill from "./Bill/Bill";
+import HistoryOfOrders from "./HistoryOfOrders/HistoryOfOrders";
 import OrderItemList from "./OrderItemList/OrderItemList";
 import axios from "axios";
 
 const Orders = () => {
   const [posts, setPosts] = useContext(PostContext);
+  const [history, setHistory] = useState([]);
   const [customer, setCustomer] = useState([]);
   //_________ TRANSFERABLE DATA_______________
   const [total, setTotal] = useState(0);
@@ -39,6 +41,8 @@ const Orders = () => {
       });
   }, []);
 
+  // _________FETCHING ORDERHISTORY__
+
   return (
     <div className={styles.OrderContainer}>
       <OrderItemList
@@ -52,7 +56,11 @@ const Orders = () => {
         total={total}
         setTotal={setTotal}
       />
-
+      <HistoryOfOrders
+        history={history}
+        setHistory={setHistory}
+        posts={posts}
+      />
       <Bill
         customer={customer}
         idquant={idquant}

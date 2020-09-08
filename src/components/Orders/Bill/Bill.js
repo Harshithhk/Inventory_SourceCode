@@ -78,6 +78,7 @@ const Orders = ({
         customer: cust[0].id,
       })
       .then((res) => {
+        window.location.reload();
         console.log("POSTED SUCCESFULLY");
       })
       .catch((err) => {

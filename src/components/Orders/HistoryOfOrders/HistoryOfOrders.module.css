@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
+
+.howrapper {
+  width: 100%;
+  font-family: "Lato", sans-serif;
+  /* padding: 25px; */
+  /* padding-top: 10px; */
+  /* background-color: lavender; */
+}
+.howrapper > h1 {
+  width: 10ch;
+  margin: auto;
+  /* margin-bottom: 5px; */
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  border-bottom: 3px solid rgb(130, 130, 241);
+}
+.ho {
+  background-color: #e0dfdf;
+  width: 90%;
+  margin: auto;
+  border: 1.5px solid #eeeded;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+.ho h5 {
+  height: 50px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  align-items: center;
+}
+.hotitle {
+  display: flex;
+  justify-content: space-around;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  align-items: center;
+  /* justify-content: center; */
+}
+.span {
+  background: white;
+  /* border-bottom: 2px solid gray; */
+}
+
+.spanid {
+  margin-left: 10px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.flexhistory {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  align-items: center;
+}
+
+.orderdetai {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  align-items: center;
+  background: white;
+}
+
+.QnT {
+  display: flex;
+
+  text-align: center;
+  margin-left: auto;
+}
+.QnT > h5 {
+  justify-content: center;
+  width: 100px;
+}
+.items {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  align-items: center;
+  background: white;
+}
