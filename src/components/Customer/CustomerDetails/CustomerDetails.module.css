@@ -36,9 +36,23 @@
   z-index: 10;
   width: 1.75rem;
   border: none;
-  background-color: rgb(255, 183, 183);
+  background-color: rgb(189, 40, 40);
   box-shadow: 1px 1px 1px red;
+  color: white;
 }
 .delete_Customer ::selection {
   background-color: red;
+}
+.pay_Customer {
+  z-index: 10;
+  width: 5.5ch;
+  border: none;
+  background-color: rgb(25, 129, 77);
+  box-shadow: 1px 1px 1px rgb(16, 134, 79);
+  margin-left: 0.75rem;
+  color: white;
+}
+
+.for_cursor {
+  cursor: default;
 }

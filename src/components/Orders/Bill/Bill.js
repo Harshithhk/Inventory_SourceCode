@@ -13,6 +13,8 @@ const Orders = ({
   customer,
   total,
   setTotal,
+  added,
+  setAdded,
 }) => {
   // const [posts, setPosts] = useContext(PostContext);
   const [copy, setCopy] = useState(saleprice);
@@ -68,7 +70,34 @@ const Orders = ({
       daily_order: false,
       customer: cust[0].id,
     });
+    var amountPaid = cust[0].amount_paid;
+    var outstandingAmount = cust[0].outstanding_amount;
+    if (paid) {
+      amountPaid = Number(cust[0].amount_paid) + Number(total);
+    } else {
+      outstandingAmount = Number(cust[0].outstanding_amount) + Number(total);
+    }
+    // _________UPDATING CUSTOMER_________
+    axios
+      .put(
+        `http://piyushdongre16.pythonanywhere.com/customer/${cust[0].id}/?format=json`,
+        {
+          id: cust[0].id,
+          name: cust[0].name,
+          phone_no: cust[0].phone_no,
+          daily_service: cust[0].daily_service,
+          outstanding_amount: outstandingAmount,
+          amount_paid: amountPaid,
+        }
+      )
+      .then((res) => {
+        console.log(`PUT CUSTOMER`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
+    // __________POSTING ORDER___________
     axios
       .post("https://piyushdongre16.pythonanywhere.com/order/?format=json", {
         order_items: Copyiq,
@@ -78,6 +107,7 @@ const Orders = ({
         customer: cust[0].id,
       })
       .then((res) => {
+        setAdded(added + 1);
         window.location.reload();
         console.log("POSTED SUCCESFULLY");
       })

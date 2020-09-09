@@ -8,6 +8,7 @@ import axios from "axios";
 
 const Orders = () => {
   const [posts, setPosts] = useContext(PostContext);
+  const [added, setAdded] = useState(0);
   const [history, setHistory] = useState([]);
   const [customer, setCustomer] = useState([]);
   //_________ TRANSFERABLE DATA_______________
@@ -34,6 +35,7 @@ const Orders = () => {
     axios
       .get("https://piyushdongre16.pythonanywhere.com/customer/?format=json")
       .then((res) => {
+        console.log(`CUSTOMER`, res.data);
         setCustomer(res.data);
       })
       .catch((err) => {
@@ -60,18 +62,22 @@ const Orders = () => {
         history={history}
         setHistory={setHistory}
         posts={posts}
+        added={added}
+        customer={customer}
       />
       <Bill
         customer={customer}
+        setCustomer={setCustomer}
         idquant={idquant}
         setIdQuant={setIdQuant}
         names={names}
         setNames={setNames}
         saleprice={saleprice}
         setSalePrice={setSalePrice}
-        customer={customer}
         total={total}
         setTotal={setTotal}
+        setAdded={setAdded}
+        added={added}
       />
     </div>
   );

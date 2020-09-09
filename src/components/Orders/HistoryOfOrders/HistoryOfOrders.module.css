@@ -3,13 +3,15 @@
 .howrapper {
   width: 100%;
   font-family: "Lato", sans-serif;
+  height: 100vh;
+  overflow: scroll;
   /* padding: 25px; */
   /* padding-top: 10px; */
   /* background-color: lavender; */
 }
 .howrapper > h1 {
   width: 10ch;
-  margin: auto;
+  margin-left: 5%;
   /* margin-bottom: 5px; */
   height: 46px;
   display: flex;
@@ -45,8 +47,10 @@
   align-items: center;
   margin-bottom: 0;
   align-items: center;
+
   /* justify-content: center; */
 }
+
 .span {
   background: white;
   /* border-bottom: 2px solid gray; */
@@ -77,13 +81,23 @@
 
 .QnT {
   display: flex;
-
   text-align: center;
   margin-left: auto;
 }
 .QnT > h5 {
   justify-content: center;
   width: 100px;
+  font-weight: lighter;
+}
+.QnT1 {
+  display: flex;
+  text-align: center;
+  margin-left: auto;
+}
+.QnT1 > h5 {
+  justify-content: center;
+  width: 100px;
+  color: gray;
 }
 .items {
   height: 50px;
