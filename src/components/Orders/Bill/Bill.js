@@ -78,42 +78,44 @@ const Orders = ({
       outstandingAmount = Number(cust[0].outstanding_amount) + Number(total);
     }
     // _________UPDATING CUSTOMER_________
-    axios
-      .put(
-        `http://piyushdongre16.pythonanywhere.com/customer/${cust[0].id}/?format=json`,
-        {
-          id: cust[0].id,
-          name: cust[0].name,
-          phone_no: cust[0].phone_no,
-          daily_service: cust[0].daily_service,
-          outstanding_amount: outstandingAmount,
-          amount_paid: amountPaid,
-        }
-      )
-      .then((res) => {
-        console.log(`PUT CUSTOMER`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (Copyiq.length !== 0) {
+      axios
+        .put(
+          `http://piyushdongre16.pythonanywhere.com/customer/${cust[0].id}/?format=json`,
+          {
+            id: cust[0].id,
+            name: cust[0].name,
+            phone_no: cust[0].phone_no,
+            daily_service: cust[0].daily_service,
+            outstanding_amount: outstandingAmount,
+            amount_paid: amountPaid,
+          }
+        )
+        .then((res) => {
+          console.log(`PUT CUSTOMER`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-    // __________POSTING ORDER___________
-    axios
-      .post("https://piyushdongre16.pythonanywhere.com/order/?format=json", {
-        order_items: Copyiq,
-        total_cost: `${total}`,
-        paid: paid,
-        daily_order: false,
-        customer: cust[0].id,
-      })
-      .then((res) => {
-        setAdded(added + 1);
-        window.location.reload();
-        console.log("POSTED SUCCESFULLY");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      // __________POSTING ORDER___________
+      axios
+        .post("https://piyushdongre16.pythonanywhere.com/order/?format=json", {
+          order_items: Copyiq,
+          total_cost: `${total}`,
+          paid: paid,
+          daily_order: false,
+          customer: cust[0].id,
+        })
+        .then((res) => {
+          setAdded(added + 1);
+          window.location.reload();
+          console.log("POSTED SUCCESFULLY");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   // _____________DELETION____________
   var salepricetemp = saleprice;
