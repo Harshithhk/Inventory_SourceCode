@@ -6,6 +6,7 @@ import ToolBar from "./components/ToolBar/ToolBar";
 import AddItem from "./components/AddItem/AddItem";
 import Orders from "./components/Orders/Orders";
 import Customer from "./components/Customer/Customer";
+import Login from "./components/Login/Login";
 import { PostProvider } from "./components/PostContext";
 import { ListProvider } from "./components/ListContext";
 import Fade from "react-reveal/Fade";
@@ -31,8 +32,9 @@ function App() {
     <Router>
       <PostProvider>
         <div className="App">
-          <Navbar />
           <Route exact path="/">
+            <Navbar />
+
             <ToolBar
               Addtoggle={Addtoggle}
               setAddtoggle={setAddtoggle}
@@ -77,10 +79,15 @@ function App() {
             </ListProvider>
           </Route>
           <Route exact path="/orders">
+            <Navbar />
             <Orders refresh={refresh} setRefresh={setRefresh} />
           </Route>
           <Route path="/customers">
+            <Navbar />
             <Customer />
+          </Route>
+          <Route exact path="/login">
+            <Login />
           </Route>
         </div>
       </PostProvider>
