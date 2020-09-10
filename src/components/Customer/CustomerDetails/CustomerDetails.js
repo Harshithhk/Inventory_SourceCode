@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import * as ReactBootStrap from "react-bootstrap";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import styles from "./CustomerDetails.module.css";
 import axios from "axios";
-
+import { AiOutlineEdit } from "react-icons/ai";
 const CustomerDetails = ({ customers, setCustomers }) => {
   const [searchText, setSearchText] = useState("");
   const [sort, setSort] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [Custname, setCustName] = useState("");
+  const [PhoneNo, setPhoneNo] = useState(0);
+  const [ID, setID] = useState(0);
   //   ________HANDLING SEARCH___________
   var Filteredposts = customers.filter((post) => {
     return post.name.toLowerCase().includes(searchText.toLowerCase());
@@ -78,6 +83,39 @@ const CustomerDetails = ({ customers, setCustomers }) => {
       );
     }
   };
+  // ______HANDLE EDIT__________
+  const handleEditCust = (item) => {
+    console.log(customers);
+    console.log(item.id);
+    setID(item.id);
+    setEdit(!edit);
+    setCustName(item.name);
+    setPhoneNo(item.phone_no);
+  };
+  const handleCustUpdate = (item) => {
+    console.log(Custname);
+    console.log(item);
+    console.log(`ID:${ID}`);
+    axios
+      .put(
+        `https://piyushdongre16.pythonanywhere.com/customer/${ID}/?format=json`,
+        {
+          id: ID,
+          name: Custname,
+          phone_no: PhoneNo,
+          daily_service: item.daily_service,
+          outstanding_amount: item.outstanding_amount,
+          amount_paid: item.amount_paid,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   // __________________________________________
   const renderPosts = (item, index) => {
     if (item.outstanding_amount == 0) {
@@ -87,6 +125,52 @@ const CustomerDetails = ({ customers, setCustomers }) => {
     }
     return (
       <tr key={item.id} className={styles.for_cursor}>
+        <Modal show={edit} onHide={() => setEdit(!edit)} centered keyboard>
+          <Modal.Header closeButton>
+            <Modal.Title>{item.name}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group as={Row} controlId="text">
+                <Form.Label column sm="2">
+                  Name
+                </Form.Label>
+                <Col sm="10">
+                  <Form.Control
+                    type="text"
+                    placeholder={item.name}
+                    size="lg"
+                    value={Custname}
+                    onChange={(e) => setCustName(e.target.value)}
+                  />
+                </Col>
+              </Form.Group>
+
+              <Form.Group as={Row} controlId="text">
+                <Form.Label column sm="2">
+                  Phone
+                </Form.Label>
+                <Col sm="10">
+                  <Form.Control
+                    type="number"
+                    placeholder={item.phone_no}
+                    size="lg"
+                    value={PhoneNo}
+                    onChange={(e) => setPhoneNo(e.target.value)}
+                  />
+                </Col>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setEdit(!edit)}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={() => handleCustUpdate(item)}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <td>{item.name}</td>
         <td>{item.phone_no}</td>
 
@@ -99,6 +183,13 @@ const CustomerDetails = ({ customers, setCustomers }) => {
             onClick={handleid}
           >
             X
+          </button>
+          <button
+            value={item.id}
+            className={styles.edit_Customer}
+            onClick={() => handleEditCust(item)}
+          >
+            <AiOutlineEdit />
           </button>
           {payup(item)}
         </td>
@@ -119,7 +210,8 @@ const CustomerDetails = ({ customers, setCustomers }) => {
       />
 
       <div className={styles.sort} onClick={handleSort}>
-        Sort by Outstandings<span>&#x2193;</span>
+        Sort by Outstandings
+        {sort ? <span> &#x02191;</span> : <span>&#x2193;</span>}
       </div>
 
       <ReactBootStrap.Table hover>

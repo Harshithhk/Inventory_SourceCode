@@ -34,6 +34,7 @@
 
 .delete_Customer {
   z-index: 10;
+
   width: 1.75rem;
   border: none;
   background-color: rgb(189, 40, 40);
@@ -42,6 +43,16 @@
 }
 .delete_Customer ::selection {
   background-color: red;
+}
+.edit_Customer {
+  z-index: 10;
+
+  width: 1.75rem;
+  border: none;
+  background-color: rgb(40, 55, 189);
+  box-shadow: 1px 1px 1px rgb(204, 137, 137);
+  color: white;
+  margin-left: 1rem;
 }
 .pay_Customer {
   z-index: 10;
