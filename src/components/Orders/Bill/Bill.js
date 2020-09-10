@@ -81,7 +81,7 @@ const Orders = ({
     if (Copyiq.length !== 0) {
       axios
         .put(
-          `http://piyushdongre16.pythonanywhere.com/customer/${cust[0].id}/?format=json`,
+          `https://piyushdongre16.pythonanywhere.com/customer/${cust[0].id}/?format=json`,
           {
             id: cust[0].id,
             name: cust[0].name,

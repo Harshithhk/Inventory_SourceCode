@@ -96,7 +96,6 @@ const List = (props) => {
         <td className={styles.datefeild}>{item.mfg_date}</td>
         <td className={styles.datefeild}>{item.exp_date}</td>
         <td>{item.size}</td>
-
         <td>{item.quantity}</td>
         <td>₹{item.selling_price}</td>
         <td>₹{total}</td>

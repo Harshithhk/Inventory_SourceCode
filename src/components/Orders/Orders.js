@@ -46,39 +46,42 @@ const Orders = () => {
   // _________FETCHING ORDERHISTORY__
 
   return (
-    <div className={styles.OrderContainer}>
-      <OrderItemList
-        posts={posts}
-        names={names}
-        setNames={setNames}
-        idquant={idquant}
-        setIdQuant={setIdQuant}
-        saleprice={saleprice}
-        setSalePrice={setSalePrice}
-        total={total}
-        setTotal={setTotal}
-      />
-      <HistoryOfOrders
-        history={history}
-        setHistory={setHistory}
-        posts={posts}
-        added={added}
-        customer={customer}
-      />
-      <Bill
-        customer={customer}
-        setCustomer={setCustomer}
-        idquant={idquant}
-        setIdQuant={setIdQuant}
-        names={names}
-        setNames={setNames}
-        saleprice={saleprice}
-        setSalePrice={setSalePrice}
-        total={total}
-        setTotal={setTotal}
-        setAdded={setAdded}
-        added={added}
-      />
+    <div>
+      <div className={styles.OrderContainer}>
+        <OrderItemList
+          posts={posts}
+          names={names}
+          setNames={setNames}
+          idquant={idquant}
+          setIdQuant={setIdQuant}
+          saleprice={saleprice}
+          setSalePrice={setSalePrice}
+          total={total}
+          setTotal={setTotal}
+        />
+
+        <Bill
+          customer={customer}
+          setCustomer={setCustomer}
+          idquant={idquant}
+          setIdQuant={setIdQuant}
+          names={names}
+          setNames={setNames}
+          saleprice={saleprice}
+          setSalePrice={setSalePrice}
+          total={total}
+          setTotal={setTotal}
+          setAdded={setAdded}
+          added={added}
+        />
+        <HistoryOfOrders
+          history={history}
+          setHistory={setHistory}
+          posts={posts}
+          added={added}
+          customer={customer}
+        />
+      </div>
     </div>
   );
 };

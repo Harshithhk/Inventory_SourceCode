@@ -8,7 +8,8 @@ import Orders from "./components/Orders/Orders";
 import Customer from "./components/Customer/Customer";
 import { PostProvider } from "./components/PostContext";
 import { ListProvider } from "./components/ListContext";
-
+import Fade from "react-reveal/Fade";
+import Zoom from "react-reveal/Zoom";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import "./App.css";
@@ -40,16 +41,18 @@ function App() {
             />
             {Addtoggle && (
               <div>
-                <AddItem
-                  AddToggle={Addtoggle}
-                  setAddToggle={setAddtoggle}
-                  CategoryToggle={CategoryToggle}
-                  setCategoryToggle={setCategoryToggle}
-                  Cate={Cate}
-                  setCate={setCate}
-                  ForRefresh={ForRefresh}
-                  setForRefresh={setForRefresh}
-                />
+                <Fade>
+                  <AddItem
+                    AddToggle={Addtoggle}
+                    setAddToggle={setAddtoggle}
+                    CategoryToggle={CategoryToggle}
+                    setCategoryToggle={setCategoryToggle}
+                    Cate={Cate}
+                    setCate={setCate}
+                    ForRefresh={ForRefresh}
+                    setForRefresh={setForRefresh}
+                  />
+                </Fade>
               </div>
             )}
 

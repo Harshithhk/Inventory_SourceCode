@@ -8,7 +8,7 @@
 
   width: 100vw;
   left: 0%;
-  z-index: 2;
+  z-index: 3;
   background: rgba(0, 0, 0, 0.2);
   /* opacity: 0.3; */
   /* height: 0px; */
@@ -86,6 +86,22 @@ h3 {
   top: 0;
   border: none;
   background-color: rgb(11, 92, 124);
+}
+.CloseBtn {
+  display: flex;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  align-items: center;
+}
+.CloseBtn > div {
+  background: rgb(2, 33, 209);
+  width: 35px;
+  height: 32.5px;
+  font-size: 1.5em;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
 }
 
 @media (max-width: 500px) {

@@ -3,6 +3,8 @@ import styles from "./CategoryEdits.module.css";
 import { RiAddBoxFill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
+import Fade from "react-reveal/Fade";
+import Slide from "react-reveal/Fade";
 import {
   InputGroup,
   Form,
@@ -12,7 +14,13 @@ import {
   Button,
 } from "react-bootstrap";
 
-const CategoryEdits = ({ Cate, setCate, setForRefresh }) => {
+const CategoryEdits = ({
+  Cate,
+  setCate,
+  setForRefresh,
+  CategoryToggle,
+  setCategoryToggle,
+}) => {
   const [UpdateCat, setUpdateCat] = useState({ id: "", name: "" });
   const [NewCat, setNewCat] = useState({ name: "" });
   const [DelteCat, setDeleteCat] = useState({});
@@ -91,83 +99,92 @@ const CategoryEdits = ({ Cate, setCate, setForRefresh }) => {
       });
   };
   return (
-    <div className={styles.CategoryEdits}>
-      <h4>CATEGORY:</h4>
-      <h6>Add new category</h6>
-      <div className={styles.cateditbox}>
-        <Form.Group className={styles.input}>
-          <Form.Control
-            className="input"
-            size="sm"
-            type="text"
-            name="exp_date"
-            value={NewCat.name}
-            onChange={handleNewCat}
-          />
-          <RiAddBoxFill
-            className={styles.Updatebtn}
-            onClick={handleNewCatSubmit}
-          />
-        </Form.Group>
-      </div>
-
-      <h6>Delete category</h6>
-      <div className={styles.cateditbox}>
-        <Form.Group className={styles.input}>
-          <Form.Control size="sm" as="select" onChange={handleDeleteOption}>
-            <option>Select a category</option>
-            {Cate.map((cats) => {
-              return <option key={cats.id}>{cats.name}</option>;
-            })}
-          </Form.Control>
-
-          <MdDelete className={styles.Deletebtn} onClick={ConfirmDelete} />
-        </Form.Group>
-      </div>
-      {ConfirmDeleteCat && (
-        <div className={styles.DeleteWarning}>
-          <h6>Confirm Delete?</h6>
-          <h8>
-            Deleting a category will also delete their respective list of items
-          </h8>
-          <div className="deletecancel">
-            <Button variant="secondary" onClick={ConfirmDelete}>
-              Cancel
-            </Button>
-            <Button variant="danger" onClick={handleCatDelete}>
-              Delete
-            </Button>
-          </div>
+    <Fade left>
+      <div className={styles.CategoryEdits}>
+        <div
+          className={styles.CloseBtn}
+          onClick={() => setCategoryToggle(!CategoryToggle)}
+        >
+          <div>X</div> <h4>CATEGORY:</h4>
         </div>
-      )}
 
-      <h6>Edit categories</h6>
-      <div className={styles.cateditbox}>
-        <Form.Group className={styles.input}>
-          <Form.Control size="sm" as="select" onChange={handleOption}>
-            <option>Select a category</option>
-            {Cate.map((cats) => {
-              return <option key={cats.id}>{cats.name}</option>;
-            })}
-          </Form.Control>
-        </Form.Group>
-        <h7>To:</h7>
-        <Form.Group className={styles.input}>
-          <Form.Control
-            className="input"
-            size="sm"
-            type="text"
-            name="exp_date"
-            value={UpdateCat.name}
-            onChange={handleUpdateName}
-          />
-          <RiAddBoxFill
-            className={styles.Updatebtn}
-            onClick={hanelUpdateCatSubmit}
-          />
-        </Form.Group>
+        <h6>Add new category</h6>
+        <div className={styles.cateditbox}>
+          <Form.Group className={styles.input}>
+            <Form.Control
+              className="input"
+              size="sm"
+              type="text"
+              name="exp_date"
+              value={NewCat.name}
+              onChange={handleNewCat}
+            />
+            <RiAddBoxFill
+              className={styles.Updatebtn}
+              onClick={handleNewCatSubmit}
+            />
+          </Form.Group>
+        </div>
+
+        <h6>Delete category</h6>
+        <div className={styles.cateditbox}>
+          <Form.Group className={styles.input}>
+            <Form.Control size="sm" as="select" onChange={handleDeleteOption}>
+              <option>Select a category</option>
+              {Cate.map((cats) => {
+                return <option key={cats.id}>{cats.name}</option>;
+              })}
+            </Form.Control>
+
+            <MdDelete className={styles.Deletebtn} onClick={ConfirmDelete} />
+          </Form.Group>
+        </div>
+        {ConfirmDeleteCat && (
+          <div className={styles.DeleteWarning}>
+            <h6>Confirm Delete?</h6>
+            <h8>
+              Deleting a category will also delete their respective list of
+              items
+            </h8>
+            <div className="deletecancel">
+              <Button variant="secondary" onClick={ConfirmDelete}>
+                Cancel
+              </Button>
+              <Button variant="danger" onClick={handleCatDelete}>
+                Delete
+              </Button>
+            </div>
+          </div>
+        )}
+
+        <h6>Edit categories</h6>
+        <div className={styles.cateditbox}>
+          <Form.Group className={styles.input}>
+            <Form.Control size="sm" as="select" onChange={handleOption}>
+              <option>Select a category</option>
+              {Cate.map((cats) => {
+                return <option key={cats.id}>{cats.name}</option>;
+              })}
+            </Form.Control>
+          </Form.Group>
+          <h7>To:</h7>
+          <Form.Group className={styles.input}>
+            <Form.Control
+              className="input"
+              size="sm"
+              type="text"
+              name="exp_date"
+              value={UpdateCat.name}
+              onChange={handleUpdateName}
+            />
+            <RiAddBoxFill
+              className={styles.Updatebtn}
+              onClick={hanelUpdateCatSubmit}
+            />
+          </Form.Group>
+        </div>
       </div>
-    </div>
+    </Fade>
   );
 };
 

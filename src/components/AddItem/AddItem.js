@@ -10,6 +10,7 @@ import {
   Col,
   FormControl,
   Button,
+  Modal,
 } from "react-bootstrap";
 import { MdLibraryAdd } from "react-icons/md";
 
@@ -30,7 +31,6 @@ const AddItem = ({
   setCategoryToggle,
 }) => {
   const [posts, setPosts] = useContext(PostContext);
-
   // ________DUMMY DATA FOR FEILDS______________________
   var dummy = {
     name: "",
@@ -216,6 +216,9 @@ const AddItem = ({
   return (
     <div className={styles.addedit}>
       <div className={styles.addeditdetail}>
+        <div className={styles.CloseBtn} onClick={handleHideAdd}>
+          <div>X</div>
+        </div>
         <div className={styles.btnreset} onClick={handlereset}>
           reset
         </div>
@@ -426,11 +429,14 @@ const AddItem = ({
           </div>
         </Form>
       </div>
+
       {CategoryToggle && (
         <CategoryEdits
           Cate={Cate}
           setCate={setCate}
           setForRefresh={setForRefresh}
+          CategoryToggle={CategoryToggle}
+          setCategoryToggle={setCategoryToggle}
         />
       )}
     </div>
