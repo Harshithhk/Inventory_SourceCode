@@ -286,7 +286,7 @@ const AddItem = ({
                 />
               </Form.Group>
             </Col>
-            <Col>
+            {/* <Col>
               <Form.Group>
                 <Form.Label>Weight(kgs)*</Form.Label>
                 <Form.Control
@@ -300,7 +300,7 @@ const AddItem = ({
                 />
                 <h3>{errors.weight}</h3>
               </Form.Group>
-            </Col>
+            </Col> */}
             <Col>
               <Form.Group>
                 <Form.Label>Quantity*</Form.Label>
@@ -365,7 +365,7 @@ const AddItem = ({
                 <h3>{errors.mfgdate}</h3>
               </Form.Group>
             </Col>
-            <Col>
+            {/* <Col>
               <Form.Group>
                 <Form.Label>Months before Exp*</Form.Label>
                 <Form.Control
@@ -376,7 +376,7 @@ const AddItem = ({
                   onChange={handleaddexpno}
                 />
               </Form.Group>
-            </Col>
+            </Col> */}
             <Col>
               <Form.Group>
                 <Form.Label>Exp date*</Form.Label>

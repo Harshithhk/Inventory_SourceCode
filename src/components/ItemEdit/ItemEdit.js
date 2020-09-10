@@ -229,7 +229,7 @@ const ItemEdit = ({ setItemOverlay, ItemOverlay }) => {
                   <h3>{errors.size}</h3>
                 </Form.Group>
               </Col>
-              <Col>
+              {/* <Col>
                 <Form.Group>
                   <Form.Label>Weight*</Form.Label>
                   <Form.Control
@@ -243,7 +243,7 @@ const ItemEdit = ({ setItemOverlay, ItemOverlay }) => {
                   />{" "}
                   <h3>{errors.weight}</h3>
                 </Form.Group>
-              </Col>
+              </Col> */}
               <Col>
                 <Form.Group>
                   <Form.Label>Quantity*</Form.Label>

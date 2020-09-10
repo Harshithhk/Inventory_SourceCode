@@ -70,7 +70,6 @@ const HistoryOfOrders = ({ history, setHistory, posts, added, customer }) => {
                 </div>
               );
             })}
-            {/* <span className={hostyles.date}>{date}</span> */}
           </div>
         );
       })}
