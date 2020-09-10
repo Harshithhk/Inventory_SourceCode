@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import CategoryEdits from "./CategoryEdits/CategoryEdits";
-
+import moment from "moment";
 import axios from "axios";
 import { CSSTransitionGroup } from "react-transition-group"; // ES6
 import {
@@ -131,7 +131,14 @@ const AddItem = ({
   // TO ADD MONTHS OF EXP
   const handleaddexpno = (e) => {
     // setExpAddition(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
+    // setAddedData({
+    //   ...AddedData,
+    //   [e.target.name]: moment(AddedData.mfg_date, "YYY-MM-DD").add(
+    //     e.target.value,
+    //     "month"
+    //   ),
+    // });
   };
 
   /*ToBePassedToCategoryEdits*/
@@ -365,7 +372,7 @@ const AddItem = ({
                   className={styles.input}
                   size="sm"
                   type="number"
-                  name="selling_price"
+                  name="exp_date"
                   onChange={handleaddexpno}
                 />
               </Form.Group>

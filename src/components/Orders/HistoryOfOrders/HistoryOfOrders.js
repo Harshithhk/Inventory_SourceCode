@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import hostyles from "./HistoryOfOrders.module.css";
 import axios from "axios";
+import moment from "moment";
 const HistoryOfOrders = ({ history, setHistory, posts, added, customer }) => {
   useEffect(() => {
     axios
@@ -18,6 +19,8 @@ const HistoryOfOrders = ({ history, setHistory, posts, added, customer }) => {
     <div className={hostyles.howrapper}>
       <h1>HISTORY:</h1>
       {history.map((order) => {
+        var date = moment(order.order_date).format("LLL");
+
         return (
           <div key={order.id} className={hostyles.ho}>
             <div className={hostyles.flexhistory}>
@@ -67,6 +70,7 @@ const HistoryOfOrders = ({ history, setHistory, posts, added, customer }) => {
                 </div>
               );
             })}
+            {/* <span className={hostyles.date}>{date}</span> */}
           </div>
         );
       })}

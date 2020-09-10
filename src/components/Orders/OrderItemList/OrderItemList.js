@@ -49,11 +49,9 @@ const OrderItemList = ({
     return (
       <tr key={item.id} onClick={() => handleorderitem(item)}>
         <td className={styles.datefeild}>{item.name}</td>
+        <td>{item.manufacturer}</td>
         <td>{item.size}</td>
-        <td>
-          {weight}
-          {weightspec}
-        </td>
+        <td>{item.quantity}</td>
         <td>₹{item.selling_price}</td>
         <td>
           <button>+</button>
@@ -72,13 +70,14 @@ const OrderItemList = ({
         value={searchText}
         onChange={handleSearch}
       />
-      <ReactBootStrap.Table hover>
+      <ReactBootStrap.Table striped hover>
         <thead id="thead">
           <tr>
             <th>Name</th>
+            <th>Manufacturer</th>
             <th>Size</th>
-            <th>Weight</th>
-            <th>SP</th>
+            <th>Quantity</th>
+            <th>Sell Price</th>
           </tr>
         </thead>
         <tbody>{Filteredposts.map(renderPosts)}</tbody>

@@ -107,3 +107,10 @@
   align-items: center;
   background: white;
 }
+.date {
+  /* width: fit-content; */
+  /* margin-left: 80%; */
+  /* background: lavender; */
+  width: 100%;
+  background: lavender;
+}

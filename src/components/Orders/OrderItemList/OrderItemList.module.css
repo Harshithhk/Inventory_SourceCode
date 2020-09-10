@@ -1,5 +1,8 @@
 .OrderItemList {
-  width: fit-content;
+  width: 80%;
+  height: 100vh;
+  overflow: hidden;
+  background: rgb(238, 238, 255);
   /* background: rgb(228, 228, 125); */
 }
 tr {

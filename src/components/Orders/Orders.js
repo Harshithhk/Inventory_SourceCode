@@ -74,14 +74,14 @@ const Orders = () => {
           setAdded={setAdded}
           added={added}
         />
-        <HistoryOfOrders
-          history={history}
-          setHistory={setHistory}
-          posts={posts}
-          added={added}
-          customer={customer}
-        />
       </div>
+      <HistoryOfOrders
+        history={history}
+        setHistory={setHistory}
+        posts={posts}
+        added={added}
+        customer={customer}
+      />
     </div>
   );
 };
