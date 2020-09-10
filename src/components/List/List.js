@@ -105,8 +105,6 @@ const List = (props) => {
 
   return (
     <div className="List">
-      {props.Search}
-      {/* HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO */}
       <ReactBootStrap.Table striped bordered hover>
         <thead id="thead">
           <tr>
