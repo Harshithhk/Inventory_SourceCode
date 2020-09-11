@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import CategoryEdits from "./CategoryEdits/CategoryEdits";
 import moment from "moment";
 import axios from "axios";
+import Cookies from "js-cookie";
+// import { AuthContext } from "../AuthContext";
 import { CSSTransitionGroup } from "react-transition-group"; // ES6
 import {
   InputGroup,
@@ -31,6 +33,7 @@ const AddItem = ({
   setCategoryToggle,
 }) => {
   const [posts, setPosts] = useContext(PostContext);
+  // const [token, setToken] = useContext(AuthContext);
   // ________DUMMY DATA FOR FEILDS______________________
   var dummy = {
     name: "",
@@ -155,7 +158,12 @@ const AddItem = ({
       axios
         .post(
           " https://piyushdongre16.pythonanywhere.com/products/?format=json",
-          AddedData
+          AddedData,
+          {
+            headers: {
+              Authorization: `JWT ${Cookies.get("Authorization")}`,
+            },
+          }
         )
         .then((res) => {
           console.log("POSTED SUCCESFULLY");
@@ -178,7 +186,11 @@ const AddItem = ({
   useEffect(() => {
     setCategoryToggle(false);
     axios
-      .get(`https://piyushdongre16.pythonanywhere.com/category/`)
+      .get(`https://piyushdongre16.pythonanywhere.com/category/`, {
+        headers: {
+          Authorization: `JWT ${Cookies.get("Authorization")}`,
+        },
+      })
       .then((res) => {
         setCate(res.data);
         console.log("FETCHED");

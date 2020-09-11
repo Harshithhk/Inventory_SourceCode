@@ -5,6 +5,7 @@ import * as ReactBootStrap from "react-bootstrap";
 import styles from "./Customer.module.css";
 import { PostContext } from "../PostContext";
 import axios from "axios";
+import Cookies from "js-cookie";
 const Customer = () => {
   const [post, setPosts] = useContext(PostContext);
   const [customers, setCustomers] = useState([]);
@@ -12,7 +13,11 @@ const Customer = () => {
   var r = false;
   useEffect(() => {
     axios
-      .get("https://piyushdongre16.pythonanywhere.com/customer/?format=json")
+      .get("https://piyushdongre16.pythonanywhere.com/customer/?format=json", {
+        headers: {
+          Authorization: `JWT ${Cookies.get("Authorization")}`,
+        },
+      })
       .then((res) => {
         setCustomers(res.data);
       })

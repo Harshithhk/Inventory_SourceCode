@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./AddCustomers.module.css";
 import axios from "axios";
+import Cookies from "js-cookie";
 import {
   InputGroup,
   Form,
@@ -21,7 +22,12 @@ const AddCustomers = (refe, setRefe) => {
     axios
       .post(
         "https://piyushdongre16.pythonanywhere.com/customer/?format=json",
-        custdata
+        custdata,
+        {
+          headers: {
+            Authorization: `JWT ${Cookies.get("Authorization")}`,
+          },
+        }
       )
       .then((res) => {
         // setRefe(refe + 1);

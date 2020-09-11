@@ -4,6 +4,7 @@ import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import styles from "./CustomerDetails.module.css";
 import axios from "axios";
 import { AiOutlineEdit } from "react-icons/ai";
+import Cookies from "js-cookie";
 const CustomerDetails = ({ customers, setCustomers }) => {
   const [searchText, setSearchText] = useState("");
   const [sort, setSort] = useState(false);
@@ -28,7 +29,12 @@ const CustomerDetails = ({ customers, setCustomers }) => {
   const handleid = (e) => {
     axios
       .delete(
-        `https://piyushdongre16.pythonanywhere.com/customer/${e.target.value}/?format=json`
+        `https://piyushdongre16.pythonanywhere.com/customer/${e.target.value}/?format=json`,
+        {
+          headers: {
+            Authorization: `JWT ${Cookies.get("Authorization")}`,
+          },
+        }
       )
       .then((res) => {
         console.log(res);
@@ -56,7 +62,12 @@ const CustomerDetails = ({ customers, setCustomers }) => {
     axios
       .put(
         `https://piyushdongre16.pythonanywhere.com/customer/${e.target.value}/?format=json`,
-        temp[0]
+        temp[0],
+        {
+          headers: {
+            Authorization: `JWT ${Cookies.get("Authorization")}`,
+          },
+        }
       )
       .then((res) => {
         console.log(`PAID SUCCESFUL`);
@@ -106,6 +117,11 @@ const CustomerDetails = ({ customers, setCustomers }) => {
           daily_service: item.daily_service,
           outstanding_amount: item.outstanding_amount,
           amount_paid: item.amount_paid,
+        },
+        {
+          headers: {
+            Authorization: `JWT ${Cookies.get("Authorization")}`,
+          },
         }
       )
       .then((res) => {

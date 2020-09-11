@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./CategoryEdits.module.css";
 import { RiAddBoxFill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import Fade from "react-reveal/Fade";
 import Slide from "react-reveal/Fade";
+import Cookies from "js-cookie";
 import {
   InputGroup,
   Form,
@@ -35,7 +36,12 @@ const CategoryEdits = ({
   const handleCatDelete = () => {
     axios
       .delete(
-        `https://piyushdongre16.pythonanywhere.com/category/${DelteCat.id}/?format=json`
+        `https://piyushdongre16.pythonanywhere.com/category/${DelteCat.id}/?format=json`,
+        {
+          headers: {
+            Authorization: `JWT ${Cookies.get("Authorization")}`,
+          },
+        }
       )
       .then((response) => {
         console.log("DELETED CATEGORY");
@@ -64,7 +70,12 @@ const CategoryEdits = ({
     axios
       .put(
         `https://piyushdongre16.pythonanywhere.com/category/${UpdateCat.id}/?format=json`,
-        UpdateCat
+        UpdateCat,
+        {
+          headers: {
+            Authorization: `JWT ${Cookies.get("Authorization")}`,
+          },
+        }
       )
       .then((res) => {
         console.log("UPDATEDCAT SUCCESFULLY");
@@ -86,7 +97,12 @@ const CategoryEdits = ({
     axios
       .post(
         "https://piyushdongre16.pythonanywhere.com/category/?format=json",
-        NewCat
+        NewCat,
+        {
+          headers: {
+            Authorization: `JWT ${Cookies.get("Authorization")}`,
+          },
+        }
       )
       .then((response) => {
         console.log("NEW CATEGORY ADDED");

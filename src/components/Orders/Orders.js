@@ -4,6 +4,7 @@ import { PostContext } from "../PostContext";
 import Bill from "./Bill/Bill";
 import HistoryOfOrders from "./HistoryOfOrders/HistoryOfOrders";
 import OrderItemList from "./OrderItemList/OrderItemList";
+import Cookies from "js-cookie";
 import axios from "axios";
 
 const Orders = () => {
@@ -20,7 +21,11 @@ const Orders = () => {
   // _________FETCHING____________
   useEffect(() => {
     axios
-      .get("https://piyushdongre16.pythonanywhere.com/products/?format=json")
+      .get("https://piyushdongre16.pythonanywhere.com/products/?format=json", {
+        headers: {
+          Authorization: `JWT ${Cookies.get("Authorization")}`,
+        },
+      })
       .then((res) => {
         setPosts(res.data);
 
@@ -33,7 +38,11 @@ const Orders = () => {
   // _________FETCHING CUSTOMER____________
   useEffect(() => {
     axios
-      .get("https://piyushdongre16.pythonanywhere.com/customer/?format=json")
+      .get("https://piyushdongre16.pythonanywhere.com/customer/?format=json", {
+        headers: {
+          Authorization: `JWT ${Cookies.get("Authorization")}`,
+        },
+      })
       .then((res) => {
         console.log(`CUSTOMER`, res.data);
         setCustomer(res.data);

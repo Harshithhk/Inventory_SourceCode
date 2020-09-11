@@ -4,7 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-
+import Cookies from "js-cookie";
+import { useHistory } from "react-router-dom";
 import "./Navbar.css";
 
 import { Link } from "react-router-dom";
@@ -21,8 +22,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({ setLoggedin }) {
   const classes = useStyles();
+  const history = useHistory();
+
+  // __________LOGGING OUT__________
+  const handleLogOut = () => {
+    Cookies.remove("Authorization");
+    history.push("/login");
+
+    setLoggedin(false);
+  };
 
   return (
     <div className={classes.root}>
@@ -60,8 +70,8 @@ export default function ButtonAppBar() {
             </ul>
           </div>
 
-          <Button className="Loginbtn" color="inherit">
-            Login
+          <Button className="Loginbtn" color="inherit" onClick={handleLogOut}>
+            LOGOUT
           </Button>
         </Toolbar>
       </AppBar>

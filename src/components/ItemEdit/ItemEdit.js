@@ -3,6 +3,7 @@ import { ListContext } from "../ListContext";
 import axios from "axios";
 import Popup from "reactjs-popup";
 import styles from "./ItemEdit.module.css";
+import Cookies from "js-cookie";
 import {
   InputGroup,
   Form,
@@ -109,7 +110,11 @@ const ItemEdit = ({ setItemOverlay, ItemOverlay }) => {
 
     setPostData(respitem);
     axios
-      .get(`https://piyushdongre16.pythonanywhere.com/category/`)
+      .get(`https://piyushdongre16.pythonanywhere.com/category/`, {
+        headers: {
+          Authorization: `JWT ${Cookies.get("Authorization")}`,
+        },
+      })
       .then((res) => {
         setCat(res.data);
         console.log(res.data);
@@ -126,7 +131,12 @@ const ItemEdit = ({ setItemOverlay, ItemOverlay }) => {
       axios
         .put(
           `https://piyushdongre16.pythonanywhere.com/products/${data.id}/?format=json`,
-          data
+          data,
+          {
+            headers: {
+              Authorization: `JWT ${Cookies.get("Authorization")}`,
+            },
+          }
         )
         .then((res) => {
           console.log("POSTED SUCCESFULLY");

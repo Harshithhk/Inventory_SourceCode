@@ -5,23 +5,38 @@ import * as ReactBootStrap from "react-bootstrap";
 
 import { PostContext } from "../PostContext";
 import { ListContext } from "../ListContext";
+import { AuthContext } from "../AuthContext";
 
 import { AiFillEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import styles from "./List.module.css";
+import Cookies from "js-cookie";
 
 const List = (props) => {
   const [posts, setPosts] = useContext(PostContext);
   const [Uid, setUid, OverlayDetails, setOverlayDetails] = useContext(
     ListContext
   );
+  const [token, setToken] = useContext(AuthContext);
+  // const readCookie = () => {
+  //   const user = Cookies.get("Authorization");
+  //   if (user) {
+  //     // setLoggedin(true);
+  //     setToken(`JWT ${user}`);
+  //   }
+  // };
 
   console.log(props);
   // const [posts, setPosts] = useState([]);
   const [Deleted, setDeleted] = useState(false);
   useEffect(() => {
+    // readCookie();
     axios
-      .get("https://piyushdongre16.pythonanywhere.com/products/?format=json")
+      .get("https://piyushdongre16.pythonanywhere.com/products/?format=json", {
+        headers: {
+          Authorization: `JWT ${Cookies.get("Authorization")}`,
+        },
+      })
       .then((res) => {
         setPosts(res.data);
         setDeleted(false);
@@ -47,7 +62,12 @@ const List = (props) => {
   const handleDelete = (id) => {
     axios
       .delete(
-        `https://piyushdongre16.pythonanywhere.com/products/${id}/?format=json`
+        `https://piyushdongre16.pythonanywhere.com/products/${id}/?format=json`,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
       )
       .then((res) => {
         console.log(`DELETED SUCCESFULLY with response ${res}`);

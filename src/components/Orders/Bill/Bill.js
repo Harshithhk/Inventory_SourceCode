@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./Bill.module.css";
 import { PostContext } from "../../PostContext";
 import { Form } from "react-bootstrap";
+import Cookies from "js-cookie";
 const Orders = ({
   idquant,
   setIdQuant,
@@ -89,6 +90,11 @@ const Orders = ({
             daily_service: cust[0].daily_service,
             outstanding_amount: outstandingAmount,
             amount_paid: amountPaid,
+          },
+          {
+            headers: {
+              Authorization: `JWT ${Cookies.get("Authorization")}`,
+            },
           }
         )
         .then((res) => {
@@ -100,13 +106,21 @@ const Orders = ({
 
       // __________POSTING ORDER___________
       axios
-        .post("https://piyushdongre16.pythonanywhere.com/order/?format=json", {
-          order_items: Copyiq,
-          total_cost: `${total}`,
-          paid: paid,
-          daily_order: false,
-          customer: cust[0].id,
-        })
+        .post(
+          "https://piyushdongre16.pythonanywhere.com/order/?format=json",
+          {
+            order_items: Copyiq,
+            total_cost: `${total}`,
+            paid: paid,
+            daily_order: false,
+            customer: cust[0].id,
+          },
+          {
+            headers: {
+              Authorization: `JWT ${Cookies.get("Authorization")}`,
+            },
+          }
+        )
         .then((res) => {
           setAdded(added + 1);
           window.location.reload();

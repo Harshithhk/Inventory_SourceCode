@@ -1,11 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
-const Login = () => {
+import { AuthContext } from "../AuthContext";
+
+const Login = ({ setLoggedin }) => {
+  const history = useHistory();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useContext(AuthContext);
+
+  // const readCookie = () => {
+  //   const user = Cookies.get("Authorization");
+  //   setLoggedin(true);
+  //   if (user) {
+  //     history.push("/");
+  //   }
+  //   console.log(user);
+  //   console.log("GETCOOKIE");
+  // };
+  // useEffect(() => {
+  //   readCookie();
+  // });
 
   const handleLogin = () => {
     axios
@@ -14,14 +31,18 @@ const Login = () => {
         password: password,
       })
       .then((res) => {
-        Cookies.set("Authorization", `JWT ${res.data.token}`);
-        console.log(res.data.token);
+        Cookies.set("Authorization", `${res.data.token}`, { expires: 1 });
+        if (res.data.token !== "") {
+          setLoggedin(true);
+          setToken(`JWT ${res.data.token}`);
+          history.push("/");
+        }
+        console.log(`JWt ${res.data.token}`);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">

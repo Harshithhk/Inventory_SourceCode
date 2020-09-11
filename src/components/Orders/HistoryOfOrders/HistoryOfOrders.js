@@ -2,10 +2,15 @@ import React, { useEffect, useState, useContext } from "react";
 import hostyles from "./HistoryOfOrders.module.css";
 import axios from "axios";
 import moment from "moment";
+import Cookies from "js-cookie";
 const HistoryOfOrders = ({ history, setHistory, posts, added, customer }) => {
   useEffect(() => {
     axios
-      .get("https://piyushdongre16.pythonanywhere.com/order/?format=json")
+      .get("https://piyushdongre16.pythonanywhere.com/order/?format=json", {
+        headers: {
+          Authorization: `JWT ${Cookies.get("Authorization")}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         setHistory(res.data);
