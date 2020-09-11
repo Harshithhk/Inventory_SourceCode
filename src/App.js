@@ -60,7 +60,6 @@ function App() {
             {!loggedin ? (
               <Login setLoggedin={setLoggedin} setToken={setToken} />
             ) : (
-              // <Redirect to="/login" />
               <>
                 <Navbar setLoggedin={setLoggedin} />
                 <ToolBar
