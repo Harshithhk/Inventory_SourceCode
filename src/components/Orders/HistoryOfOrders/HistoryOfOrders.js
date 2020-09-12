@@ -3,7 +3,10 @@ import hostyles from "./HistoryOfOrders.module.css";
 import axios from "axios";
 import moment from "moment";
 import Cookies from "js-cookie";
+import { useHistory } from "react-router-dom";
+
 const HistoryOfOrders = ({ history, setHistory, posts, added, customer }) => {
+  const hist = useHistory();
   useEffect(() => {
     axios
       .get("https://piyushdongre16.pythonanywhere.com/order/?format=json", {
@@ -17,6 +20,7 @@ const HistoryOfOrders = ({ history, setHistory, posts, added, customer }) => {
       })
       .catch((err) => {
         console.log(err);
+        hist.push("/login");
       });
   }, [added]);
 

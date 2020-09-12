@@ -19,6 +19,7 @@ import { MdLibraryAdd } from "react-icons/md";
 import { PostContext } from "../PostContext";
 
 import styles from "./AddItem.module.css";
+import { useHistory } from "react-router-dom";
 
 //_________IMPORT ENDS_______________________________
 
@@ -32,6 +33,7 @@ const AddItem = ({
   CategoryToggle,
   setCategoryToggle,
 }) => {
+  const history = useHistory();
   const [posts, setPosts] = useContext(PostContext);
   // const [token, setToken] = useContext(AuthContext);
   // ________DUMMY DATA FOR FEILDS______________________
@@ -177,6 +179,7 @@ const AddItem = ({
             ...errors,
             required: "Feilds with star(*) cannot be empty",
           });
+          // history.push("/login");
 
           console.log(err);
         });
@@ -198,6 +201,7 @@ const AddItem = ({
       .catch((err) => {
         console.log(err);
         console.log(`Failed DATA ${AddedData}`);
+        // history.push("/login");
       });
   }, [ForRefresh]);
   // ___________________HANDLEING ADDING OF DATA______

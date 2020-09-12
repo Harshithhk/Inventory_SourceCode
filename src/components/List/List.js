@@ -11,8 +11,10 @@ import { AiFillEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import styles from "./List.module.css";
 import Cookies from "js-cookie";
+import { useHistory } from "react-router-dom";
 
 const List = (props) => {
+  const history = useHistory();
   const [posts, setPosts] = useContext(PostContext);
   const [Uid, setUid, OverlayDetails, setOverlayDetails] = useContext(
     ListContext
@@ -44,6 +46,7 @@ const List = (props) => {
         console.log(res.data);
       })
       .catch((err) => {
+        history.push("/login");
         console.log(err);
       });
   }, [Deleted, props.refresh]);
@@ -76,6 +79,7 @@ const List = (props) => {
         // window.location.reload();
       })
       .catch((err) => {
+        history.push("/login");
         console.log(err);
       });
   };

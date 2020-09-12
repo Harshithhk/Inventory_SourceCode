@@ -14,6 +14,7 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 const CategoryEdits = ({
   Cate,
@@ -22,6 +23,7 @@ const CategoryEdits = ({
   CategoryToggle,
   setCategoryToggle,
 }) => {
+  const history = useHistory();
   const [UpdateCat, setUpdateCat] = useState({ id: "", name: "" });
   const [NewCat, setNewCat] = useState({ name: "" });
   const [DelteCat, setDeleteCat] = useState({});
