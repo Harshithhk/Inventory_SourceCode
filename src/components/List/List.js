@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as ReactBootStrap from "react-bootstrap";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 
 import { PostContext } from "../PostContext";
 import { ListContext } from "../ListContext";
@@ -20,15 +21,8 @@ const List = (props) => {
     ListContext
   );
   const [token, setToken] = useContext(AuthContext);
-  // const readCookie = () => {
-  //   const user = Cookies.get("Authorization");
-  //   if (user) {
-  //     // setLoggedin(true);
-  //     setToken(`JWT ${user}`);
-  //   }
-  // };
+  const [deleteModal, setDeleteModal] = useState(false);
 
-  console.log(props);
   // const [posts, setPosts] = useState([]);
   const [Deleted, setDeleted] = useState(false);
   useEffect(() => {
@@ -62,10 +56,16 @@ const List = (props) => {
     setUid(value);
   };
 
-  const handleDelete = (id) => {
+  // ________DELETION_________
+  const [delId, setdelId] = useState(0);
+  const settingDelId = (e, id) => {
+    setdelId(id);
+    setDeleteModal(!deleteModal);
+  };
+  const handleDelete = () => {
     axios
       .delete(
-        `https://piyushdongre16.pythonanywhere.com/products/${id}/?format=json`,
+        `https://piyushdongre16.pythonanywhere.com/products/${delId}/?format=json`,
         {
           headers: {
             Authorization: `${token}`,
@@ -74,12 +74,13 @@ const List = (props) => {
       )
       .then((res) => {
         console.log(`DELETED SUCCESFULLY with response ${res}`);
+        setDeleteModal(false);
         setDeleted(true);
 
         // window.location.reload();
       })
       .catch((err) => {
-        history.push("/login");
+        // history.push("/login");
         console.log(err);
       });
   };
@@ -98,11 +99,33 @@ const List = (props) => {
     // ____________________________________________
     return (
       <tr key={item.id}>
+        <Modal
+          show={deleteModal}
+          onHide={() => setDeleteModal(!deleteModal)}
+          centered
+          keyboard
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Confirm Deletion?</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setDeleteModal(!deleteModal)}
+            >
+              Close
+            </Button>
+            <Button variant="danger" onClick={handleDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <td className={styles.edit}>
           {ind}
 
           <div className={styles.deletebtn}>
-            <button value="Click Me" onClick={() => handleDelete(item.id)}>
+            <button value={item.id} onClick={(e) => settingDelId(e, item.id)}>
               <MdDelete />
             </button>
           </div>
@@ -147,6 +170,28 @@ const List = (props) => {
         </thead>
         <tbody>{Filteredps.map(renderPosts)}</tbody>
       </ReactBootStrap.Table>
+      <Modal
+        show={deleteModal}
+        onHide={() => setDeleteModal(!deleteModal)}
+        centered
+        keyboard
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Deletion?</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setDeleteModal(!deleteModal)}
+          >
+            Close
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

@@ -26,10 +26,16 @@ const CustomerDetails = ({ customers, setCustomers }) => {
     setSearchText(e.target.value);
   };
   // _______DELETING CUSTOMER___________
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [delId, setdelId] = useState(0);
+  const settingDelId = (e, id) => {
+    setdelId(id);
+    setDeleteModal(!deleteModal);
+  };
   const handleid = (e) => {
     axios
       .delete(
-        `https://piyushdongre16.pythonanywhere.com/customer/${e.target.value}/?format=json`,
+        `https://piyushdongre16.pythonanywhere.com/customer/${delId}/?format=json`,
         {
           headers: {
             Authorization: `JWT ${Cookies.get("Authorization")}`,
@@ -95,18 +101,15 @@ const CustomerDetails = ({ customers, setCustomers }) => {
     }
   };
   // ______HANDLE EDIT__________
+  const [editpost, setEditPost] = useState();
   const handleEditCust = (item) => {
-    console.log(customers);
-    console.log(item.id);
+    setEditPost(item);
     setID(item.id);
     setEdit(!edit);
     setCustName(item.name);
     setPhoneNo(item.phone_no);
   };
-  const handleCustUpdate = (item) => {
-    console.log(Custname);
-    console.log(item);
-    console.log(`ID:${ID}`);
+  const handleCustUpdate = () => {
     axios
       .put(
         `https://piyushdongre16.pythonanywhere.com/customer/${ID}/?format=json`,
@@ -114,9 +117,9 @@ const CustomerDetails = ({ customers, setCustomers }) => {
           id: ID,
           name: Custname,
           phone_no: PhoneNo,
-          daily_service: item.daily_service,
-          outstanding_amount: item.outstanding_amount,
-          amount_paid: item.amount_paid,
+          daily_service: editpost.daily_service,
+          outstanding_amount: editpost.outstanding_amount,
+          amount_paid: editpost.amount_paid,
         },
         {
           headers: {
@@ -141,52 +144,6 @@ const CustomerDetails = ({ customers, setCustomers }) => {
     }
     return (
       <tr key={item.id} className={styles.for_cursor}>
-        <Modal show={edit} onHide={() => setEdit(!edit)} centered keyboard>
-          <Modal.Header closeButton>
-            <Modal.Title>{item.name}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group as={Row} controlId="text">
-                <Form.Label column sm="2">
-                  Name
-                </Form.Label>
-                <Col sm="10">
-                  <Form.Control
-                    type="text"
-                    placeholder={item.name}
-                    size="lg"
-                    value={Custname}
-                    onChange={(e) => setCustName(e.target.value)}
-                  />
-                </Col>
-              </Form.Group>
-
-              <Form.Group as={Row} controlId="text">
-                <Form.Label column sm="2">
-                  Phone
-                </Form.Label>
-                <Col sm="10">
-                  <Form.Control
-                    type="number"
-                    placeholder={item.phone_no}
-                    size="lg"
-                    value={PhoneNo}
-                    onChange={(e) => setPhoneNo(e.target.value)}
-                  />
-                </Col>
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setEdit(!edit)}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={() => handleCustUpdate(item)}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
         <td>{item.name}</td>
         <td>{item.phone_no}</td>
 
@@ -196,7 +153,7 @@ const CustomerDetails = ({ customers, setCustomers }) => {
           <button
             value={item.id}
             className={styles.delete_Customer}
-            onClick={handleid}
+            onClick={(e) => settingDelId(e, item.id)}
           >
             X
           </button>
@@ -245,6 +202,71 @@ const CustomerDetails = ({ customers, setCustomers }) => {
           <tbody>{Filteredposts.map(renderPosts)}</tbody>
         )}
       </ReactBootStrap.Table>
+      <Modal
+        show={deleteModal}
+        onHide={() => setDeleteModal(!deleteModal)}
+        centered
+        keyboard
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Deletion?</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setDeleteModal(!deleteModal)}
+          >
+            Close
+          </Button>
+          <Button variant="danger" onClick={handleid}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={edit} onHide={() => setEdit(!edit)} centered keyboard>
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group as={Row} controlId="text">
+              <Form.Label column sm="2">
+                Name
+              </Form.Label>
+              <Col sm="10">
+                <Form.Control
+                  type="text"
+                  size="lg"
+                  value={Custname}
+                  onChange={(e) => setCustName(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="text">
+              <Form.Label column sm="2">
+                Phone
+              </Form.Label>
+              <Col sm="10">
+                <Form.Control
+                  type="number"
+                  size="lg"
+                  value={PhoneNo}
+                  onChange={(e) => setPhoneNo(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setEdit(!edit)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleCustUpdate}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
