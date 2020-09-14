@@ -11,19 +11,6 @@ const Login = ({ setLoggedin }) => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useContext(AuthContext);
 
-  // const readCookie = () => {
-  //   const user = Cookies.get("Authorization");
-  //   setLoggedin(true);
-  //   if (user) {
-  //     history.push("/");
-  //   }
-  //   console.log(user);
-  //   console.log("GETCOOKIE");
-  // };
-  // useEffect(() => {
-  //   readCookie();
-  // });
-
   const handleLogin = () => {
     axios
       .post("https://piyushdongre16.pythonanywhere.com/token-auth/", {
