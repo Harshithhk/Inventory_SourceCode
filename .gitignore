@@ -10,6 +10,7 @@
 
 # production
 /build
+/Inventory_System
 
 # misc
 .DS_Store

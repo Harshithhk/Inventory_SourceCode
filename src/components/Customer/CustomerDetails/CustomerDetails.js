@@ -57,6 +57,7 @@ const CustomerDetails = ({ customers, setCustomers }) => {
     temp = customers.filter((cust) => {
       return cust.id === Number(e.target.value);
     });
+
     console.log(temp);
     hanldePaidUpdate(e);
   };
@@ -77,6 +78,7 @@ const CustomerDetails = ({ customers, setCustomers }) => {
       )
       .then((res) => {
         console.log(`PAID SUCCESFUL`);
+        setSort(!sort);
       })
       .catch((err) => {
         console.log(err);

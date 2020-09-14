@@ -3,6 +3,7 @@ import CategoryEdits from "./CategoryEdits/CategoryEdits";
 import moment from "moment";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 // import { AuthContext } from "../AuthContext";
 import { CSSTransitionGroup } from "react-transition-group"; // ES6
 import {
@@ -42,7 +43,6 @@ const AddItem = ({
     manufacturer: "",
     distributer: "",
     size: "",
-    weight: 0,
     quantity: 0,
     cost_price: 0,
     selling_price: 0,
@@ -102,20 +102,20 @@ const AddItem = ({
       });
       return false;
     }
-    if (AddedData.mfg_date.match(regEx) == null) {
-      setErrors({
-        ...errors,
-        mfgdate: "Format should be YYY-MM-DD",
-      });
-      return false;
-    }
-    if (AddedData.exp_date.match(regEx) == null) {
-      setErrors({
-        ...errors,
-        expdate: "Format should be YYY-MM-DD",
-      });
-      return false;
-    }
+    // if (AddedData.mfg_date.match(regEx) == null) {
+    //   setErrors({
+    //     ...errors,
+    //     mfgdate: "Format should be YYY-MM-DD",
+    //   });
+    //   return false;
+    // }
+    // if (AddedData.exp_date.match(regEx) == null) {
+    //   setErrors({
+    //     ...errors,
+    //     expdate: "Format should be YYY-MM-DD",
+    //   });
+    //   return false;
+    // }
 
     if (AddedData.category === "") {
       setErrors({
@@ -134,17 +134,6 @@ const AddItem = ({
   // const [ForRefresh, setForRefresh] = useState("");
 
   // TO ADD MONTHS OF EXP
-  const handleaddexpno = (e) => {
-    // setExpAddition(e.target.value);
-    // console.log(e.target.value);
-    // setAddedData({
-    //   ...AddedData,
-    //   [e.target.name]: moment(AddedData.mfg_date, "YYY-MM-DD").add(
-    //     e.target.value,
-    //     "month"
-    //   ),
-    // });
-  };
 
   /*ToBePassedToCategoryEdits*/
   const [AddedData, setAddedData] = useState(dummy);
@@ -169,7 +158,7 @@ const AddItem = ({
         )
         .then((res) => {
           console.log("POSTED SUCCESFULLY");
-
+          setMBX(0);
           setPosts([...posts, AddedData]);
           setAddedData(dummy);
           setErrors(errordummy);
@@ -205,12 +194,44 @@ const AddItem = ({
       });
   }, [ForRefresh]);
   // ___________________HANDLEING ADDING OF DATA______
-  const handleadd = (e) => {
-    console.log(e.target.value);
+  const [MBX, setMBX] = useState(0);
+
+  const handleaddexpno = (e) => {
+    setMBX(e.target.value);
     setAddedData({
       ...AddedData,
-      [e.target.name]: e.target.value,
+      exp_date: `${moment(AddedData.mfg_date)
+        .add(e.target.value, "months")
+        .format("YYYY-MM-DD")}`,
     });
+    // setMBX(
+    //   moment(AddedData.mfg_date)
+    //     .add(e.target.value, "months")
+    //     .format("DD-MM-YYYY")
+    // );
+    // console.log(MBX);
+  };
+  const handleadd = (e) => {
+    console.log(e.target.type);
+    if (e.target.name == "mfg_date") {
+      setMBX(0);
+      console.log("CAUGHT");
+
+      var a = `${moment(e.target.value).format("YYYY-MM-DD")}`;
+      setAddedData({
+        ...AddedData,
+        [e.target.name]: a,
+      });
+      // b = moment(a).add(1, "months").format("YYYY-MM-DD");
+
+      // console.log("EXP DATE", b);
+      console.log("MOMENT", a);
+    } else {
+      setAddedData({
+        ...AddedData,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   const handcateeleadd = (e) => {
@@ -372,16 +393,16 @@ const AddItem = ({
                 <Form.Control
                   className={styles.input}
                   size="sm"
-                  type="text"
+                  type="date"
                   name="mfg_date"
                   value={AddedData.mfg_date}
-                  placeholder="yyyy-mm-dd"
+                  placeholder="dd-mm-yyy"
                   onChange={handleadd}
                 />
                 <h3>{errors.mfgdate}</h3>
               </Form.Group>
             </Col>
-            {/* <Col>
+            <Col>
               <Form.Group>
                 <Form.Label>Months before Exp*</Form.Label>
                 <Form.Control
@@ -389,11 +410,12 @@ const AddItem = ({
                   size="sm"
                   type="number"
                   name="exp_date"
+                  value={MBX}
                   onChange={handleaddexpno}
                 />
               </Form.Group>
-            </Col> */}
-            <Col>
+            </Col>
+            {/* <Col>
               <Form.Group>
                 <Form.Label>Exp date*</Form.Label>
                 <Form.Control
@@ -401,13 +423,13 @@ const AddItem = ({
                   size="sm"
                   type="text"
                   name="exp_date"
-                  value={AddedData.exp_date}
-                  placeholder="yyyy-mm-dd"
-                  onChange={handleadd}
+                  value={MBX}
+                  // placeholder="yyyy-mm-dd"
+                  // onChange={handleadd}
                 />
                 <h3>{errors.expdate}</h3>
               </Form.Group>
-            </Col>
+            </Col> */}
           </Row>
           <Form.Group>
             <Form.Label>Category*</Form.Label>
