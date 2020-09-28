@@ -155,12 +155,14 @@ const ItemEdit = ({ setItemOverlay, ItemOverlay }) => {
   // const [Value, setValue] = useState({});
 
   // console.log(Value);
-  const handledata = (e) => {
+  const handledata = async (e) => {
     console.log(e.target.value);
-    setdata({
+    await setdata({
       ...data,
       [e.target.name]: e.target.value,
     });
+    console.log("LOGGING CAT CHANGES");
+    console.log(data);
   };
 
   const handleoverlaycancel = () => {
@@ -336,7 +338,12 @@ const ItemEdit = ({ setItemOverlay, ItemOverlay }) => {
             </Row>
             <Form.Group>
               <Form.Label>Category* </Form.Label>
-              <Form.Control size="sm" as="select">
+              <Form.Control
+                size="sm"
+                as="select"
+                name="category"
+                onChange={handledata}
+              >
                 <option>{data.category}</option>
                 {Cat.map((cat) => {
                   return <option key={cat.name}>{cat.name}</option>;
