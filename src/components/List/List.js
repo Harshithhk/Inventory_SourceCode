@@ -14,6 +14,9 @@ import styles from "./List.module.css";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 
+import LoadingOverlay from "react-loading-overlay";
+import BounceLoader from "react-spinners/BounceLoader";
+
 const List = (props) => {
   const history = useHistory();
   const [posts, setPosts] = useContext(PostContext);
@@ -22,10 +25,12 @@ const List = (props) => {
   );
   const [token, setToken] = useContext(AuthContext);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // const [posts, setPosts] = useState([]);
   const [Deleted, setDeleted] = useState(false);
   useEffect(() => {
+    setIsLoading(true);
     // readCookie();
     axios
       .get("https://piyushdongre16.pythonanywhere.com/products/?format=json", {
@@ -38,8 +43,10 @@ const List = (props) => {
         setDeleted(false);
         setOverlayDetails(res.data);
         console.log(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         history.push("/login");
         console.log(err);
       });
@@ -151,48 +158,50 @@ const List = (props) => {
   };
 
   return (
-    <div className="List">
-      <ReactBootStrap.Table striped bordered hover>
-        <thead id="thead">
-          <tr>
-            <th className="editingbtns">Id</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Mfg</th>
-            <th>Mfg Date</th>
-            <th>Exp Date</th>
-            <th>Size</th>
+    <LoadingOverlay active={isLoading} spinner={<BounceLoader />}>
+      <div className="List">
+        <ReactBootStrap.Table striped bordered hover>
+          <thead id="thead">
+            <tr>
+              <th className="editingbtns">Id</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Mfg</th>
+              <th>Mfg Date</th>
+              <th>Exp Date</th>
+              <th>Size</th>
 
-            <th>Quantity</th>
-            <th>Sell Price</th>
-            <th>Total Value</th>
-          </tr>
-        </thead>
-        <tbody>{Filteredps.map(renderPosts)}</tbody>
-      </ReactBootStrap.Table>
-      <Modal
-        show={deleteModal}
-        onHide={() => setDeleteModal(!deleteModal)}
-        centered
-        keyboard
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Deletion?</Modal.Title>
-        </Modal.Header>
+              <th>Quantity</th>
+              <th>Sell Price</th>
+              <th>Total Value</th>
+            </tr>
+          </thead>
+          <tbody>{Filteredps.map(renderPosts)}</tbody>
+        </ReactBootStrap.Table>
+        <Modal
+          show={deleteModal}
+          onHide={() => setDeleteModal(!deleteModal)}
+          centered
+          keyboard
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Confirm Deletion?</Modal.Title>
+          </Modal.Header>
 
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={() => setDeleteModal(!deleteModal)}
-          >
-            Close
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setDeleteModal(!deleteModal)}
+            >
+              Close
+            </Button>
+            <Button variant="danger" onClick={handleDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    </LoadingOverlay>
   );
 };
 
